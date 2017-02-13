@@ -6,8 +6,7 @@ router.get("/", function(req, res) {
     res.render('index', {
         title: "bingoo is big girl",
         user: {
-            name: req.isAuthenticated() ? req.user.name : "Guest",
-            authenticated: req.isAuthenticated()
+            name: "Guest"
         }
     });
 });
