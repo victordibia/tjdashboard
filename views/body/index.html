@@ -1,0 +1,106 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+
+	<section class="content">
+
+
+
+		<!-- Info boxes -->
+		<div class="alert alert-success alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<h4>
+			<i class="icon fa fa-check"></i> Hi there and welcome!
+			</h4> cardSORTER is still in Beta - There may be some bugs. Please report them on the <a href="https://github.com/victordibia/cardsorter/issues/new"> cardsorter github page. </a>
+		</div>
+		<!-- /.row -->
+		<!-- Your Page Content Here -->
+		<!-- COLOR PALETTE -->
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="box box-success">
+					<div class="box-header with-border">
+						<h3 class="box-title">Login </h3>
+						<span class="label label-success pull-right"><i class="fa fa-lock"></i></span>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<p> <b></b></p>
+						<form action="/auth/login" method="POST" name="loginform" role="form">
+							<input type="hidden" name="_token" value="">
+							<div class="form-group has-feedback">
+								<input name="email" type="email" class="form-control" value="admin@admin.com" placeholder="email address">
+								<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+							</div>
+							<div class="form-group has-feedback">
+								<input name="password" type="password" value="password" class="form-control" placeholder="Password"> <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+							</div>
+							<div class="row">
+								<div class="col-xs-4 pull-right">
+									<button type="submit" class="btn btn-primary btn-success btn-block btn-flat">Sign In</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+
+			<div class="col-sm-6">
+				<div class="box box-success">
+					<div class="box-header with-border">
+						<h3 class="box-title">Register </h3>
+						<span class="label label-success pull-right"><i class="fa fa-envelope"></i></span>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<form action="/auth/register" method="POST" name="loginform" role="form">
+							<input type="hidden" name="_token" value="">
+							<div class="form-group has-feedback">
+								<input name="email" type="email" class="form-control" placeholder="name">
+								<span class="glyphicon glyphicon-user form-control-feedback"></span>
+							</div>
+							<div class="form-group has-feedback">
+								<input name="email" type="email" class="form-control" placeholder="email address">
+								<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+							</div>
+							<div class="form-group has-feedback">
+								<input name="password" type="password" class="form-control" placeholder="password"> <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+							</div>
+							<div class="row">
+								<div class="col-xs-4 pull-right">
+									<button type="submit" class="btn btn-primary btn-success btn-block btn-flat">Register</button>
+								</div>
+							</div>
+						</form>
+
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+			<!-- /.col -->
+			<!-- /.box-body -->
+
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="box box-success">
+					<div class="box-body">
+						<img class="img-responsive " src="/img/homecard.jpg" alt="Photo">
+						<div class="pad">
+							<p>
+								cardSORTER is an online tool in beta stage development to simplify the research process of CARD SORTING. Though similar, this process is fairly different from the cardsorting process used to group and layout content for user interface research.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
