@@ -27,8 +27,8 @@
             "<i class = '" + liclass + "'></i> " +
             "<div class='timeline-item'>" +
             "<span class='time'><i class='fa fa-clock-o'></i> &nbsp" + timestamp + "</span>" +
-            "<h3 class='timeline-header'><a href='#'>" + sender + "</a> " + transcript + "</h3>" +
-            "<div class='timeline-body'>" + description + "</div>" +
+            "<h3 class='timeline-header'><a href='#'>" + sender + "</a> " + "" + "</h3>" +
+            "<div class='timeline-body'>" + transcript + "</div>" +
             "</div> </li>";
 
         $(html).insertAfter(".time-label").hide().show("slow");
