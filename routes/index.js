@@ -4,7 +4,7 @@ var router = express.Router();
 // //Handles Every other page/url request
 router.get("/", function(req, res) {
     res.render('index', {
-        title: "bingoo is big girl",
+        title: "Test title",
         user: {
             name: "Guest"
         }
