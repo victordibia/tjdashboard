@@ -1,0 +1,28 @@
+{
+  "name": "tjdashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "express": "^4.14.1",
+    "pug": "^2.0.0-beta11",
+    "request": "^2.79.0",
+    "tjbot": "0.0.7",
+    "ws": "^2.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victordibia/tjdashboard.git"
+  },
+  "author": "Victor Dibia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/victordibia/tjdashboard/issues"
+  },
+  "homepage": "https://github.com/victordibia/tjdashboard#readme"
+}
