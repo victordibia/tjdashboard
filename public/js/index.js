@@ -15,20 +15,42 @@
 
     ws.onmessage = function(evt) {
         var data = JSON.parse(evt.data);
-        console.log("Message is received..." + data.transcript);
-        var bgcolor = data.confidence >= 0.5 ? "bg-green" : "bg-red";
+
+        var bgcolor = data.confidence >= 0.5 ? "bg-blue" : "bg-red";
         var liclass = "fa fa-bullhorn " + bgcolor;
         var timestamp = new Date(data.timestamp);
-        timestamp = timestamp.getHours() + ":" + timestamp.getMinutes();
+        timestamp = timestamp.getHours() + ":" + timestamp.getMinutes() + " " + months[timestamp.getMonth()] + " " +
+            +timestamp.getDate() + " " + timestamp.getFullYear();
         var sender = data.sender;
+        var image = "";
         var transcript = data.transcript;
+        var visiontags = ""
+        if (data.type == "vision") {
+            image = "<img class='img-responsive padbottom10' src='" + data.imageurl + "' >"
+            liclass = "fa fa-camera " + bgcolor;
+            transcript = "";
+
+            data.visiontags.forEach(function(tag) {
+                visiontags = visiontags + "<a class='tagframe bg-blue btn' href= '" + tag.url + "'> " + tag.title + "</a>";
+            })
+        }
+
+
+        var tags = ""
+        data.tags.forEach(function(tag) {
+            tags = tags + "<a class='tagframe bg-blue btn' href= '" + tag.url + "'> " + tag.title + "</a>";
+        })
 
         var html = "<li>" +
             "<i class = '" + liclass + "'></i> " +
             "<div class='timeline-item'>" +
             "<span class='time'><i class='fa fa-clock-o'></i> &nbsp" + timestamp + "</span>" +
-            "<h3 class='timeline-header'><a href='#'>" + sender + "</a> " + "" + "</h3>" +
-            "<div class='timeline-body'>" + transcript + "</div>" +
+            "<h3 class='timeline-header'><a href='#'>" + data.type + "</a> " + data.title + "</h3>" +
+            "<div class='timeline-body'>" + image +
+            "<span class='transcript'>" + transcript + "</span>" +
+            "</div>" +
+            "<div class=''>" + tags + "</div>" +
+            "</div>" +
             "</div> </li>";
 
         $(html).insertAfter(".time-label").hide().show("slow");

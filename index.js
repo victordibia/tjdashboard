@@ -58,15 +58,19 @@ tj.listen(function(msg) {
                     } else if (matchedIntent == "see") {
                         logSpeak("TJBot", conversation_response);
                         tj.speakAsync(conversation_response).then(function() {
-                            tj.seeAsync().then(function(response) {
-                                console.log(" ... response .. ", response.description)
-                                if (response.description != null) {
-                                    logSpeak("TJBot", response.description);
-                                    tj.speakAsync(response.description).then(function() {
-                                        tj.shine("white");
-                                    })
-                                }
-                            });
+                            tj.captureImage().then(function(filePath) {
+                                tj.callVisualRecognition().then(function(response) {
+                                    logVision(response)
+                                    console.log(" ... response .. ", response.description)
+                                    if (response.description != null) {
+                                        logSpeak("TJBot", response.description);
+                                        tj.speakAsync(response.description).then(function() {
+                                            tj.shine("white");
+                                        })
+                                    }
+                                });
+                            })
+
                         });
                     } else if (matchedIntent == "off_topic") {
                         // do nothing
@@ -156,15 +160,38 @@ function findPeaks(audioBuffer, sampleRate, soundFile) {
     tj.playSound(soundFile);
 }
 
+function logVision() {
+    sender = "Vision"
+    message = "The objects I see in the image are "
+    var message = {
+        type: "vision",
+        sender: sender,
+        transcript: message,
+        description: "",
+        imageurl: "img/screen.jpg",
+        timestamp: Date.now(),
+        tags: [{
+            title: "visual recognition",
+            url: "#"
+        }, {
+            title: "camera",
+            url: "#"
+        }],
+        confidence: 1
+    }
+    console.log(message)
+    dashboard.sendEvent(message)
+}
 
 function logSpeak(sender, message) {
     var message = {
-        type: "speak",
+        type: "speech",
         sender: sender,
         transcript: message,
         description: "",
         imageurl: "",
         timestamp: Date.now(),
+        tags: ["speech to text", "text to speech", "microphone", "speaker"]
         confidence: 1
     }
     console.log(message)

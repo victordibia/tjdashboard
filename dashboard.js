@@ -57,7 +57,11 @@ var sendEvent = function(data) {
     console.log("Number of connectd clients", clients.size)
     for (var [key, client] of clients) {
         //console.log(key + ' = sending');
-        client.send(JSON.stringify(data))
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify(data))
+        } else {
+            clients.delete(key);
+        }
     }
 }
 
