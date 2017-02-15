@@ -14,7 +14,6 @@ function logSpeak() {
         title: sender == "you" ? "What TJBot thinks you said" : "WHat TJBot says",
         transcript: message,
         description: "",
-        imageurl: null,
         timestamp: Date.now(),
         tags: [{
             title: "speech to text",
