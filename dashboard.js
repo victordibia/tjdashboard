@@ -59,7 +59,7 @@ tj.listen(function(msg) {
                         logSpeak("TJBot", conversation_response);
                         tj.speakAsync(conversation_response).then(function() {
                             tj.captureImage().then(function(filePath) {
-                                tj.callVisualRecognition().then(function(response) {
+                                tj.callVisualRecognition("classify", filePath).then(function(response) {
                                     logVision("tjbot", response)
                                     console.log(" ... response .. ", response.description)
                                     if (response.description != null) {

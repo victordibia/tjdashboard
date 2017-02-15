@@ -1,4 +1,6 @@
 var server = require("./server");
+var filePath = process.cwd() + "/public/img"
+console.log(filePath)
 
 setInterval(function() {
     logSpeak();
