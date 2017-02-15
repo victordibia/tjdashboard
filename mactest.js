@@ -1,4 +1,4 @@
-var dashboard = require("./dashboard");
+var server = require("./server");
 
 setInterval(function() {
     logSpeak();
@@ -31,7 +31,7 @@ function logSpeak() {
         confidence: 1
     }
     console.log(message)
-    dashboard.sendEvent(message)
+    server.sendEvent(message)
 }
 
 function logVision() {
@@ -62,5 +62,5 @@ function logVision() {
         confidence: 1
     }
     console.log(message)
-    dashboard.sendEvent(message)
+    server.sendEvent(message)
 }
