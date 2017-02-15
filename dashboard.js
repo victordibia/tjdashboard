@@ -186,7 +186,7 @@ function logVision(sender, message, response) {
         confidence: 1
     }
     console.log(message)
-    dashboard.sendEvent(message)
+    server.sendEvent(message)
 }
 
 function logSpeak(sender, message) {
@@ -214,5 +214,5 @@ function logSpeak(sender, message) {
         confidence: 1
     }
     console.log(message)
-    dashboard.sendEvent(message)
+    server.sendEvent(message)
 }
