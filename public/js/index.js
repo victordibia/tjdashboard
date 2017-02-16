@@ -30,7 +30,6 @@
             image = "<img class='img-responsive padbottom10' src='" + data.imageurl + "' >"
             liclass = "fa fa-camera " + bgcolor;
             transcript = "";
-
             data.visiontags.forEach(function(tag) {
                 visiontags = visiontags + "<a class='tagframe bg-blue btn' href= '" + tag.url + "'> " + tag.title + "</a>";
             })
