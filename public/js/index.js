@@ -9,8 +9,8 @@
     var ws = new WebSocket(socketurl);
 
     ws.onopen = function() {
-        ws.send("Message  from browser ");
-        console.log("Message is sent...");
+        $(".disabledoverlay").remove()
+        console.log("Connection opened");
     };
 
     ws.onmessage = function(evt) {
