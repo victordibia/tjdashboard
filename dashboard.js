@@ -6,6 +6,7 @@ context = new AudioContext
 var request = require("request");
 var fs = require('fs');
 var fileDir = process.cwd() + "/public/img"
+var curImage = "";
 
 // obtain our credentials from config.js
 var credentials = config.credentials;
@@ -59,9 +60,11 @@ tj.listen(function(msg) {
                     } else if (matchedIntent == "see") {
                         logSpeak("TJBot", conversation_response);
                         tj.speakAsync(conversation_response).then(function() {
-                            filePath = fileDir + Date.now() + ".jpg";
+                            curImage = Date.now() + ".jpg";
+                            filePath = fileDir + "/" + curImage;
                             tj.captureImage(filePath).then(function(filePath) {
                                 tj.callVisualRecognition("classify", filePath).then(function(response) {
+                                    response.imageurl = curImage;
                                     logVision("tjbot", response)
                                     console.log(" ... response .. ", response.description)
                                     if (response.description != null) {
@@ -162,14 +165,14 @@ function findPeaks(audioBuffer, sampleRate, soundFile) {
     tj.playSound(soundFile);
 }
 
-function logVision(sender, message, response) {
+function logVision(sender, response) {
     var message = {
         type: "vision",
         title: "What TJBot Sees",
         sender: sender,
         transcript: response.description,
         description: "",
-        imageurl: "img/screen.jpg",
+        imageurl: response.imageurl,
         timestamp: Date.now(),
         tags: [{
             title: "visual recognition",
@@ -191,13 +194,13 @@ function logVision(sender, message, response) {
     server.sendEvent(message)
 }
 
-function logSpeak(sender, message) {
+function logSpeak(sender, transcript) {
 
     var message = {
         type: "speech",
         sender: sender,
         title: sender == "you" ? "What TJBot thinks you said" : "WHat TJBot says",
-        transcript: message,
+        transcript: transcript,
         description: "",
         timestamp: Date.now(),
         tags: [{
