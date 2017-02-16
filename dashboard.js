@@ -5,6 +5,7 @@ var AudioContext = require('web-audio-api').AudioContext
 context = new AudioContext
 var request = require("request");
 var fs = require('fs');
+var filePath = process.cwd() + "/public/img"
 
 // obtain our credentials from config.js
 var credentials = config.credentials;
@@ -58,7 +59,7 @@ tj.listen(function(msg) {
                     } else if (matchedIntent == "see") {
                         logSpeak("TJBot", conversation_response);
                         tj.speakAsync(conversation_response).then(function() {
-                            tj.captureImage().then(function(filePath) {
+                            tj.captureImage(filePath).then(function(filePath) {
                                 tj.callVisualRecognition("classify", filePath).then(function(response) {
                                     logVision("tjbot", response)
                                     console.log(" ... response .. ", response.description)

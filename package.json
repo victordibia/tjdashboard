@@ -8,7 +8,7 @@
     "express": "^4.14.1",
     "pug": "^2.0.0-beta11",
     "request": "^2.79.0",
-    "tjbot": "^0.0.7",
+    "tjbot": "latest",
     "ws": "^2.0.3"
   },
   "devDependencies": {},
