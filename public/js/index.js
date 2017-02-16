@@ -9,7 +9,8 @@
     var ws = new WebSocket(socketurl);
 
     ws.onopen = function() {
-        $(".disabledoverlay").remove()
+        $(".disableoverlay").remove();
+        $(".firstitem").remove();
         console.log("Connection opened");
     };
 
