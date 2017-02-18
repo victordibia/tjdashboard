@@ -46,13 +46,13 @@ tj.listen(function(msg) {
                     tj.shine("green");
                     if (matchedIntent == "dance") {
                         logSpeak("TJBot", conversation_response);
-                        tj.speakAsync(conversation_response).then(function() {
+                        tj.speak(conversation_response).then(function() {
                             dance("club.wav")
                         });
                         //dance();
                     } else if (matchedIntent == "wave") {
                         logSpeak("TJBot", conversation_response);
-                        tj.speakAsync(conversation_response).then(function() {
+                        tj.speak(conversation_response).then(function() {
                             // wave
                             tj.wave();
                             tj.wave();
@@ -60,7 +60,7 @@ tj.listen(function(msg) {
                         })
                     } else if (matchedIntent == "see") {
                         logSpeak("TJBot", conversation_response);
-                        tj.speakAsync(conversation_response).then(function() {
+                        tj.speak(conversation_response).then(function() {
                             curImage = Date.now() + ".jpg";
                             filePath = fileDir + "/" + curImage;
                             tj.captureImage(filePath).then(function(filePath) {
@@ -70,7 +70,7 @@ tj.listen(function(msg) {
                                     console.log(" ... response .. ", response.description)
                                     if (response.description != null) {
                                         logSpeak("TJBot", response.description);
-                                        tj.speakAsync(response.description).then(function() {
+                                        tj.speak(response.description).then(function() {
                                             tj.shine("white");
                                         })
                                     }
@@ -82,7 +82,7 @@ tj.listen(function(msg) {
                         // do nothing
                     } else {
                         logSpeak("TJBot", conversation_response);
-                        tj.speakAsync(conversation_response).then(function() {
+                        tj.speak(conversation_response).then(function() {
                             tj.shine("white");
                         });
                     }
