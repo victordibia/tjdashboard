@@ -21,7 +21,13 @@ var hardware = ['microphone', 'speaker', 'led', 'servo'];
 // Set up configuration paramters
 var tjConfig = {
     verboseLogging: true, //enable console debugging
-    servoPin: 7 // set servo pin
+    servoPin: 7, // set servo pin
+    cameraParams: {
+        height: 720,
+        width: 960,
+        vflip: true,
+        hflilp: true
+    } // setup my camera capture parameters
 };
 
 // instantiate our TJBot!
