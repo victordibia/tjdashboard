@@ -1,3 +1,5 @@
+exports.webServerNumber = 8078;
+
 // User-specific configuration
 exports.voice = 'en-US_MichaelVoice';
 exports.conversationWorkspaceId = ''; // replace with the workspace identifier of your conversation

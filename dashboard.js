@@ -33,6 +33,7 @@ tj.listen(function(msg) {
     // send to the conversation service
     tj.converse(WORKSPACEID, msg, function(response, responseText) {
         // speak the result
+        response = response.object;
         if (response.output.text.length > 0) {
             //console.log(response)
             conversation_response = response.output.text[0];
