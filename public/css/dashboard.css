@@ -4,6 +4,59 @@
     margin-right: 5px;
 }
 
+.inl-bl {
+    display: inline-block;
+}
+
+.colorpicker-2x .colorpicker-saturation {
+    width: 200px;
+    height: 200px;
+}
+
+.colorpicker-2x .colorpicker-hue, .colorpicker-2x .colorpicker-alpha {
+    width: 30px;
+    height: 200px;
+}
+
+.colorpicker-2x .colorpicker-color, .colorpicker-2x .colorpicker-color div {
+    height: 30px;
+}
+
+.selectbutton {
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.modaltext {
+    font-size: 20px;
+}
+
+.familiarity {
+    font-size: 40px;
+    font-weight: bold;
+    color: green;
+}
+
+.slidertag {
+    font-size: 20px;
+    font-weight: bold;
+    color: grey;
+    display: inline-block;
+}
+
+.buttonsubtext {
+    display: block;
+    font-size: 15px;
+}
+
+.buttonmaintext {
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.selectimage {}
+
 .bold {
     font-weight: bold;
 }

@@ -10,4 +10,13 @@ router.get("/", function(req, res) {
         }
     });
 });
+router.get("/face", function(req, res) {
+    res.render('face', {
+        title: "Test title",
+        user: {
+            name: "Guest"
+        }
+    });
+});
+module.exports = router;
 module.exports = router;

@@ -1,0 +1,15 @@
+//- index.jade
+doctype html
+html
+    head
+        title TJBot | Interact with TJBot
+    body.skin-blue.layout-top-nav.hold-transition
+        div.wrapper
+            include header.pug
+            include ./body/face.html
+            include footer.pug
+        script(src='plugins/ionslider/js/ion-rangeSlider/ion.rangeSlider.min.js')
+        script(src='plugins/bootstrap-slider/bootstrap-slider.js')
+        script(src='plugins/colorpicker/js/bootstrap-colorpicker.min.js')
+        script(src='js/face.js')
+        script(src='js/index.js')

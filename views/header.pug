@@ -4,6 +4,11 @@ link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
 link(href='/fontawesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
 // Ionicons
 link(href='/ionic/css/ionicons.min.css', rel='stylesheet', type='text/css')
+link(href='/plugins/ionslider/css/ion.rangeSlider.css', rel='stylesheet', type='text/css')
+link(href='plugins/ionslider/css/ion.rangeSlider.skinNice.css', rel='stylesheet', type='text/css')
+link(href='/plugins/bootstrap-slider/slider.css', rel='stylesheet', type='text/css')
+link(href='/plugins/colorpicker/css/bootstrap-colorpicker.min.css', rel='stylesheet', type='text/css')
+
 // Theme style
 link(href='/css/AdminLTE.min.css', rel='stylesheet', type='text/css')
 link(href='/css/dashboard.css', rel='stylesheet', type='text/css')
@@ -17,77 +22,3 @@ link(href='/css/_all-skins.min.css', rel='stylesheet', type='text/css')
 //if lt IE 9
     script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
     script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
-// Main Header
-header.main-header
-    // Logo
-    a.logo(href='#')
-        // mini logo for sidebar mini 50x50 pixels
-        span.logo-mini
-            b B
-            | ot
-        // logo for regular state and mobile devices
-        span.logo-lg
-            b IBM
-            | &nbsp TJBot
-    // Header Navbar
-    nav.navbar.navbar-static-top(role='navigation')
-        // Sidebar toggle button
-        a.sidebar-toggle(href='#', data-toggle='offcanvas', role='button')
-            span.sr-only Toggle navigation
-        // Navbar Right Menu
-        .navbar-custom-menu
-            ul.nav.navbar-nav
-                // Messages: style can be found in dropdown.less
-                // Notifications Menu
-                if user.authenticated
-                    li.dropdown.notifications-menu
-                        // Menu toggle button
-                        a.dropdown-toggle(href='#', data-toggle='dropdown')
-                            i.fa.fa-bell-o
-                            span.label.label-warning
-                        ul.dropdown-menu
-                            li.header 2 notifications
-                            li
-                                // Inner Menu: contains the notifications
-                                ul.menu
-                                    li
-                                        // start notification
-                                        a(href='#')
-                                            i.fa.fa-users.text-aqua
-                                            |  New charts available
-                                    // end notification
-                            li.footer
-                                a(href='#') View all
-                    // User Account Menu
-                    li.dropdown.user.user-menu
-                        // Menu Toggle Button
-                        a.dropdown-toggle(href='#', data-toggle='dropdown')
-                            // The user image in the navbar
-                            img.user-image(src='/img/user2-160x160.jpg', alt='User Image')
-                            // hidden-xs hides the username on small devices so only the image appears.
-                            span#username.hidden-xs= user.name
-                        ul.dropdown-menu
-                            // The user image in the menu
-                            li.user-header
-                                img(src='/img/user2-160x160.jpg', class='img-circle', alt='User Image')
-                                p
-                                    | Moderator
-                                    small Online Since 12:00
-                            // Menu Body
-                            li.user-body
-                                .col-xs-4.text-center
-                                    a(href='#') Followers
-                                .col-xs-4.text-center
-                                    a(href='#') Remote Users
-                                .col-xs-4.text-center
-                                    a(href='#') Devices
-                            // Menu Footer
-                            li.user-footer
-                                .pull-left
-                                    a.btn.btn-default.btn-flat(href='#') Profile
-                                .pull-right
-                                    a.btn.btn-default.btn-flat(href='/auth/logout') Sign out
-                    // Control Sidebar Toggle Button
-                    li
-                        a(href='#', data-toggle='control-sidebar')
-                            i.fa.fa-gears
