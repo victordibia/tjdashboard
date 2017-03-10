@@ -25,8 +25,8 @@ var tjConfig = {
     cameraParams: {
         height: 720,
         width: 960,
-        vflip: true,
-        hflip: true
+        vflip: false,
+        hflip: false
     } // setup my camera capture parameters
 };
 

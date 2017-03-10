@@ -114,8 +114,9 @@
             message.event = "led"
             message.color = e.color.toString('hex');
             oldstamp = Date.now();
+            ws.send(JSON.stringify(message));
         }
-        //ws.send(JSON.stringify(message));
+        //
     });
 
     $("#wavebutton").click(function() {
