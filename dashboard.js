@@ -26,7 +26,7 @@ var tjConfig = {
         height: 720,
         width: 960,
         vflip: true,
-        hflilp: true
+        hflip: true
     } // setup my camera capture parameters
 };
 
@@ -49,6 +49,7 @@ server.wss.on('connection', function connection(ws) {
                 break;
 
             case 'led':
+                console.log("shinning led ", message.color)
                 tj.shine(message.color)
 
         }
