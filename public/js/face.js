@@ -54,7 +54,7 @@
                 "<i class = '" + liclass + "'></i> " +
                 "<div class='timeline-item'>" +
                 "<span class='time'><i class='fa fa-clock-o  '></i> &nbsp" + timestamp + "</span>" +
-                "<h3 class='timeline-header'><a href='#'>" + data.type + "</a> " + data.title + "</h3>" +
+                "<h3 class='timelinetitle'><a href='#'>" + data.type + "</a> " + data.title + "</h3>" +
                 "<div class='timeline-body'>" + image +
                 "<span class='transcript'>" + transcript + "</span>" +
                 "</div>" +

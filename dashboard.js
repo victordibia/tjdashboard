@@ -39,10 +39,10 @@ server.wss.on('connection', function connection(ws) {
         console.log("beee", (message));
         switch (message.event) {
             case 'wave':
-                wave("Waving my arm")
+                wave("Waving my arm. Just for you")
                 break;
             case 'dance':
-                predance("Sure.")
+                predance("Sure. I'll play some music and dance.")
                 break;
             case 'see':
                 see("Taking a picture!")
@@ -57,6 +57,7 @@ server.wss.on('connection', function connection(ws) {
 
 });
 
+startListening();
 
 function startListening() {
     tj.listen(function(msg) {
