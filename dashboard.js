@@ -42,7 +42,7 @@ server.wss.on('connection', function connection(ws) {
                 wave("Waving my arm")
                 break;
             case 'dance':
-                predance("")
+                predance("Sure.")
                 break;
             case 'see':
                 see("Taking a picture!")
@@ -238,7 +238,7 @@ function logVision(sender, response) {
         }],
         confidence: 1
     }
-    console.log(message)
+    //console.log(message)
     server.sendEvent(message)
 }
 
@@ -266,6 +266,6 @@ function logSpeak(sender, transcript) {
         }],
         confidence: 1
     }
-    console.log(message)
+    //console.log(message)
     server.sendEvent(message)
 }
