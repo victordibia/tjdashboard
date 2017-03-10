@@ -77,7 +77,7 @@ function startListening() {
                     if (intentconfidence > 0.5) {
                         tj.shine("green");
                         if (matchedIntent == "dance") {
-                            predance();
+                            predance("Sure, will play some music");
                             //dance();
                         } else if (matchedIntent == "wave") {
                             wave(conversation_response);
