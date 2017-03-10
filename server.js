@@ -41,12 +41,12 @@ var clients = new Map();
 
 wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
-        console.log('received: %s', message);
+
     });
     clients.set(ws._socket._handle.fd, ws);
     //clients.push({id: ws._socket._handle.fd , client: });
 
-    ws.send('something ......');
+    //  ws.send('something ......');
     var hold = ws;
 
     ws.on('close', function close() {
@@ -69,5 +69,5 @@ var sendEvent = function(data) {
     }
 }
 
-
 exports.sendEvent = sendEvent;
+exports.wss = wss

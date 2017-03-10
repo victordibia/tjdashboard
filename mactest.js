@@ -3,9 +3,36 @@ var filePath = process.cwd() + "/public/img"
 console.log(filePath)
 
 setInterval(function() {
-    logSpeak();
-    logVision();
+    //logSpeak();
+    //logVision();
 }, 8000)
+
+
+server.wss.on('connection', function connection(ws) {
+    ws.on('message', function incoming(message) {
+        message = JSON.parse(message)
+        console.log("beee", (message));
+        switch (message.event) {
+            case 'wave':
+                //wave()
+                break;
+
+            case 'dance':
+                //predance()
+                break;
+
+            case 'see':
+                //see()
+                logVision();
+                break;
+
+            case 'led':
+                //tj.shine(message.color)
+
+        }
+    });
+
+});
 
 function logSpeak() {
     sender = Math.random() > 0.5 ? "TJBot" : "You"

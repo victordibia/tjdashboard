@@ -62,6 +62,15 @@
         console.log("Connection is closed...");
     };
 
+    $("#wavebutton").click(function() {
+        var message = {}
+        message.event = "wave"
+        ws.send(JSON.stringify(message));
+        console.log("sent: ", JSON.stringify(message));
+        //console.log($('#cp8').data('colorpicker').color)
+    })
+
+
 
     // <li>
     //   <i class="fa fa-user bg-aqua"></i>

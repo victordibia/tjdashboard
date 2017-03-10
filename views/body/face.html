@@ -19,11 +19,11 @@
              		 	        </span>
                                 </li>
                                 <li class="firstitem">
-                                    <i class="fa fa-bullhorn bg-blue"></i>
+                                    <i class="fa fa-bullhorn bg-green"></i>
                                     <div class="timeline-item">
                                         <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
                                         <h3 class="timeline-header"><a href="#">Connecting ...</a> ...</h3>
-                                        <div class="timeline-body"> Connecting to websocket
+                                        <div class="timeline-body"> Attempting to reconnect ...
                                         </div>
                                     </div>
                                 </li>
@@ -32,21 +32,24 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="disableoverlay overlay">
+                            <i class="fa fa-refresh fa-spin"></i>
+                        </div>
 
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <button class="btn btn-block btn-success btn-lg selectbutton">
+                    <button id="seebutton" class="btn btn-block btn-success btn-lg selectbutton">
                     <i class="fa fa-camera-retro fa-3x"></i>
                     <span class="buttonsubtext"> See </span>
                   </button>
 
-                    <button class="btn btn-block btn-success btn-lg selectbutton">
+                    <button id="dancebutton" class="btn btn-block btn-success btn-lg selectbutton">
                   <i class="fa  fa-music fa-3x"></i>
                   <span class="buttonsubtext"> Dance </span>
                 </button>
 
-                    <button class="btn btn-block btn-success btn-lg selectbutton">
+                    <button id="wavebutton" class="btn btn-block btn-success btn-lg selectbutton">
                       <i class="fa  fa-hand-stop-o fa-3x"></i>
                       <span class="buttonsubtext"> Wave </span>
                      </button>

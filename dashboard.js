@@ -32,86 +32,127 @@ var tjConfig = {
 
 // instantiate our TJBot!
 var tj = new tjbot(hardware, tjConfig, credentials);
-tj.shine("magenta")
 
-tj.listen(function(msg) {
-    logSpeak("you", msg);
-    // send to the conversation service
-    tj.converse(WORKSPACEID, msg, function(response, responseText) {
-        // speak the result
-        response = response.object;
-        if (response.output.text.length > 0) {
-            //console.log(response)
-            conversation_response = response.output.text[0];
-            if (conversation_response != undefined) {
-                var matchedIntent = response.intents[0].intent; // intent with the highest confidence
-                var intentconfidence = response.intents[0].confidence;
-                console.log("> intents : ", response.intents);
+server.wss.on('connection', function connection(ws) {
+    ws.on('message', function incoming(message) {
+        message = JSON.parse(message)
+        console.log("beee", (message));
+        switch (message.event) {
+            case 'wave':
+                wave("Waving my arm")
+                break;
+            case 'dance':
+                predance("")
+                break;
+            case 'see':
+                see("Taking a picture!")
+                break;
 
-                if (intentconfidence > 0.5) {
-                    tj.shine("green");
-                    if (matchedIntent == "dance") {
-                        logSpeak("TJBot", conversation_response);
-                        tj.speak(conversation_response).then(function() {
-                            dance("club.wav")
-                        });
-                        //dance();
-                    } else if (matchedIntent == "wave") {
-                        logSpeak("TJBot", conversation_response);
-                        tj.speak(conversation_response).then(function() {
-                            // wave
-                            tj.wave();
-                            tj.wave();
-                            tj.shine("white");
-                        })
-                    } else if (matchedIntent == "see") {
-                        logSpeak("TJBot", conversation_response);
-                        tj.speak(conversation_response).then(function() {
-                            curImage = Date.now() + ".jpg";
-                            filePath = fileDir + "/" + curImage;
-                            tj.captureImage(filePath).then(function(filePath) {
-                                tj.callVisualRecognition("classify", filePath).then(function(response) {
-                                    response.imageurl = curImage;
-                                    logVision("tjbot", response)
-                                    console.log(" ... response .. ", response.description)
-                                    if (response.description != null) {
-                                        logSpeak("TJBot", response.description);
-                                        tj.speak(response.description).then(function() {
-                                            tj.shine("white");
-                                        })
-                                    }
-                                });
-                            })
+            case 'led':
+                tj.shine(message.color)
 
-                        });
-                    } else if (matchedIntent == "off_topic") {
-                        // do nothing
-                    } else {
-                        logSpeak("TJBot", conversation_response);
-                        tj.speak(conversation_response).then(function() {
-                            tj.shine("white");
-                        });
-                    }
-
-                } else {
-                    tj.shine("red");
-                    setTimeout(function() {
-                        tj.shine("white");
-                    }, 800);
-                }
-
-            } else {
-                tj.shine("red");
-                console.log("The response (output) text from your conversation is empty. Please check your conversation flow \n" + JSON.stringify(response))
-            }
-        } else {
-            console.error("The conversation service did not return any response text.");
         }
-        //console.log("conversation response", response)
     });
 
 });
 
+
+function startListening() {
+    tj.listen(function(msg) {
+        logSpeak("you", msg);
+        // send to the conversation service
+        tj.converse(WORKSPACEID, msg, function(response, responseText) {
+            // speak the result
+            response = response.object;
+            if (response.output.text.length > 0) {
+                //console.log(response)
+                conversation_response = response.output.text[0];
+                if (conversation_response != undefined) {
+                    var matchedIntent = response.intents[0].intent; // intent with the highest confidence
+                    var intentconfidence = response.intents[0].confidence;
+                    console.log("> intents : ", response.intents);
+
+                    if (intentconfidence > 0.5) {
+                        tj.shine("green");
+                        if (matchedIntent == "dance") {
+                            predance();
+                            //dance();
+                        } else if (matchedIntent == "wave") {
+                            wave(conversation_response);
+                        } else if (matchedIntent == "see") {
+                            see(conversation_response);
+                        } else if (matchedIntent == "off_topic") {
+                            // do nothing
+                        } else {
+                            logSpeak("TJBot", conversation_response);
+                            tj.speak(conversation_response).then(function() {
+                                tj.shine("white");
+                            });
+                        }
+
+                    } else {
+                        tj.shine("red");
+                        setTimeout(function() {
+                            tj.shine("white");
+                        }, 800);
+                    }
+
+                } else {
+                    tj.shine("red");
+                    console.log("The response (output) text from your conversation is empty. Please check your conversation flow \n" + JSON.stringify(response))
+                }
+            } else {
+                console.error("The conversation service did not return any response text.");
+            }
+            //console.log("conversation response", response)
+        });
+
+    });
+
+}
+
+function setLED(color) {
+    tj.shine(color)
+}
+
+function predance(conversation_response) {
+    logSpeak("TJBot", conversation_response);
+    tj.speak(conversation_response).then(function() {
+        dance("club.wav")
+    });
+}
+
+function wave(conversation_response) {
+    logSpeak("TJBot", conversation_response);
+    tj.speak(conversation_response).then(function() {
+        // wave
+        tj.wave();
+        tj.wave();
+        tj.shine("white");
+    })
+}
+
+function see(conversation_response) {
+    logSpeak("TJBot", conversation_response);
+    tj.speak(conversation_response).then(function() {
+        curImage = Date.now() + ".jpg";
+        filePath = fileDir + "/" + curImage;
+        tj.captureImage(filePath).then(function(filePath) {
+            tj.callVisualRecognition("classify", filePath).then(function(response) {
+                response.imageurl = curImage;
+                logVision("tjbot", response)
+                console.log(" ... response .. ", response.description)
+                if (response.description != null) {
+                    logSpeak("TJBot", response.description);
+                    tj.speak(response.description).then(function() {
+                        tj.shine("white");
+                    })
+                }
+            });
+        })
+
+    });
+}
 
 /**
  * [dance play a soundFile and dance to its beats]
