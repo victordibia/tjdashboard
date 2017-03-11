@@ -13,11 +13,13 @@
     var ws;
 
     connectSocket();
+    $("button").prop("disabled", true)
 
     function connectSocket() {
         ws = new WebSocket(socketurl);
         ws.onopen = function() {
             $(".disableoverlay").hide();
+            $("button").prop("disabled", false)
             $(".firstitem").hide();
             console.log("Connection opened");
         };
@@ -70,6 +72,7 @@
             console.log("Connection is closed...");
             $(".disableoverlay").show();
             $(".firstitem").show();
+            $("button").prop("disabled", true)
 
             setTimeout(function() {
                 connectSocket();
@@ -78,6 +81,24 @@
 
 
     }
+
+
+    $("#listening").switchButton({
+        width: 120,
+        height: 40,
+        button_width: 70,
+        labels_placement: "right"
+    })
+
+    $("#listening").change(function() {
+        var message = {}
+        message.event = "listening"
+        message.value = $(this).is(":checked");
+
+        ws.send(JSON.stringify(message));
+        console.log($(this).is(":checked"))
+    })
+
 
 
     $("#lightbutton").click(function() {
@@ -140,11 +161,6 @@
     $(document).keypress(function(e) {
 
     });
-
-
-
-
-
 
 
 

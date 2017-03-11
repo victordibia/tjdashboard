@@ -28,6 +28,11 @@ server.wss.on('connection', function connection(ws) {
 
             case 'led':
                 //tj.shine(message.color)
+                //
+            case 'listening':
+                console.log("toggle listening", message.value)
+                listening = message.value;
+                break;
 
         }
     });

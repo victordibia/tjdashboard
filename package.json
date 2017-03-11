@@ -6,6 +6,7 @@
   "dependencies": {
     "body-parser": "^1.16.1",
     "express": "^4.14.1",
+    "jquery-ui": "^1.12.1",
     "pug": "^2.0.0-beta11",
     "request": "^2.79.0",
     "tjbot": "latest",
