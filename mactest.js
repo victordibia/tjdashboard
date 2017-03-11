@@ -7,7 +7,7 @@ setInterval(function() {
     //logVision();
 }, 8000)
 
-
+var listening
 server.wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
         message = JSON.parse(message)
@@ -30,8 +30,10 @@ server.wss.on('connection', function connection(ws) {
                 //tj.shine(message.color)
                 //
             case 'listening':
-                console.log("toggle listening", message.value)
+
                 listening = message.value;
+
+                if (listening) console.log("bog listening")
                 break;
 
         }

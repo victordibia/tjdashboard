@@ -84,7 +84,7 @@
 
 
     $("#listening").switchButton({
-        width: 120,
+        width: 130,
         height: 40,
         button_width: 70,
         labels_placement: "right"
