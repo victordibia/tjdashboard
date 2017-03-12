@@ -23,7 +23,7 @@ server.wss.on('connection', function connection(ws) {
 
             case 'see':
                 //see()
-                logVision();
+                logSpeak();
                 break;
 
             case 'led':
