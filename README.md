@@ -7,11 +7,8 @@ In addition, it also provides UI buttons that can be used to control the bot e.g
 <img src="/public/img/screen.jpg" width="100%">
 
 ## How It Works
-- Listens for voice commands. See [**Running**](#running) for a list of voice commands supported in this sample.
-- Sends audio from the microphone to the [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html) Service - STT to transcribe audio to text.
-- Parses the text looking for commands
-- Once a command is recognized, an appropriate action (e.g wave arm) is taken and TJ verbalizes this action as well using  [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) to generate an audio file.
-- The robot plays back the response through using the Alsa tools
+- Starts up a webserver (express) and serves up an interface which can be assessed via a browser on the pi localhost, port 8068. http:pi.ip.address:8068.
+- TJBot events are streamed to the interface which displays them. Examples of events include hearing a new message, receiving a response from a call to the conversation service etc.
 
 ##Hardware
 Follow the full set of instructions on [instructables](http://www.instructables.com/id/Build-a-Waving-Robot-Using-Watson-Services/) to prepare your TJBot ready to run the code.
@@ -35,7 +32,7 @@ Your servo motor has three wires -  Power, Ground and Data in. In this recipe I 
 
 Note: In the code, you can always change the pins used.
 
-<img src="/images/tjwave_bb.jpg" width="100%">
+<img src="/public/img/tjwave_bb.jpg" width="100%">
 
 
 
