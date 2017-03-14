@@ -55,7 +55,7 @@
                       <span class="buttonsubtext"> Wave </span>
                      </button>
 
-                    <div class="   ">
+                    <div class="">
                         <!-- /.box-header -->
                         <button class="btn btn-block btn-success btn-lg selectbutton" id="lightbutton">
                             <i class="fa  fa-lightbulb-o fa-3x"></i>
@@ -66,7 +66,6 @@
 
                         </br/>
                     </div>
-
                     <div class="box box-success">
                         <div class="box-header with-border">
                             Toggle listening.
@@ -75,6 +74,12 @@
                             <input type="checkbox" name="great" class="switchbutton" id="listening">
                         </div>
                     </div>
+
+                    <button id="speakbutton" class="btn btn-block btn-success btn-lg selectbutton">
+                      <i class="fa  fa-wechat -o fa-3x"></i>
+                      <span class="buttonsubtext"> speak </span>
+                    </button>
+
                 </div>
             </div>
 
@@ -84,27 +89,51 @@
 
             <!-- /.row -->
         </section>
-        <div class="modal-success modal fade bs-example-modal-lg" id="updatemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-success modal fade bs-example-modal-lg" id="speakmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title videotitle modaltext" id="updatetitle">Modal title</h4>
+                        <h4 class="modal-title videotitle modaltext" id="updatetitle">Enter Message to Speak</h4>
                     </div>
                     <div class="modal-body">
-
-                        <div id="updatemessage" class="modaltext">
-
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="inputmessage" class="col-sm-2 control-label">Message: </label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="speakinputmessage" value="Hi there, I am super excited to meet everyone at the SXSW Conference" placeholder="Enter message here">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button id="updatebutton" type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="speaksendbutton" type="button" class="btn btn-outline" data-dismiss="modal">Send</button>
                 </div>
             </div>
         </div>
-        <!-- /.content -->
     </div>
-    <!-- /.container -->
+    <div class="modal-success modal fade bs-example-modal-lg" id="updatemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title videotitle modaltext" id="updatetitle">Modal title</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div id="updatemessage" class="modaltext">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="updatebutton" type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.container -->
 </div>
 <!-- /.content-wrapper -->

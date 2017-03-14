@@ -56,6 +56,10 @@ server.wss.on('connection', function connection(ws) {
                 console.log("shinning led ", message.color)
                 tj.shine(message.color)
                 break;
+            case 'speak':
+                console.log("speaking ", message.value)
+                tj.speak(message.value)
+                break;
             case 'listening':
                 console.log("toggle listening", message.value)
                 listening = message.value;

@@ -16,7 +16,10 @@ server.wss.on('connection', function connection(ws) {
             case 'wave':
                 //wave()
                 break;
-
+            case 'speak':
+                console.log("speaking ", message.value)
+                //  tj.speak(message.value)
+                break;
             case 'dance':
                 //predance()
                 break;

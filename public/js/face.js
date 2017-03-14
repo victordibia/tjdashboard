@@ -83,6 +83,8 @@
     }
 
 
+
+
     $("#listening").switchButton({
         width: 130,
         height: 40,
@@ -98,6 +100,7 @@
         ws.send(JSON.stringify(message));
         console.log($(this).is(":checked"))
     })
+
 
 
 
@@ -145,6 +148,35 @@
         message.event = "wave"
         ws.send(JSON.stringify(message));
     })
+
+    $("#speakbutton").click(function() {
+        $('#speakmodal').modal({
+            show: true
+        })
+    })
+
+    $("#speaksendbutton").click(function() {
+        sendSpeakMessage();
+    })
+
+    $("#speakinputmessage").keypress(function(e) {
+        if (e.which == 13) {
+            //sendSpeakMessage();
+            $("#speaksendbutton").click();
+        }
+    })
+
+
+    function sendSpeakMessage() {
+        var message = {}
+        message.event = "speak"
+        message.value = $("#speakinputmessage").val()
+        if (message.value != "") {
+            ws.send(JSON.stringify(message));
+        }
+    }
+
+
 
     $("#seebutton").click(function() {
         var message = {}
