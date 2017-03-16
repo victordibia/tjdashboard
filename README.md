@@ -6,11 +6,13 @@ In addition, it also provides UI/buttons that can be used to control the bot e.g
 
 <img src="/public/img/screen.jpg" width="100%">
 
+
 ## How It Works
 - Starts up a webserver (express) and serves up an interface which can be assessed via a browser on the pi localhost, port 8068. http:pi.ip.address:8068.
 - TJBot events are streamed to the interface which displays them. Examples of events include hearing a new message, receiving a response from a call to the conversation service etc.
 
-##Hardware
+
+## Hardware
 Follow the full set of instructions on [instructables](http://www.instructables.com/id/Build-a-Waving-Robot-Using-Watson-Services/) to prepare your TJBot ready to run the code.
 
 Note: You must have a servo motor connected to your Pi.  
@@ -22,7 +24,7 @@ Note: You must have a servo motor connected to your Pi.
 - [Servo Motor] (https://www.amazon.com/gp/product/B00JJZXRR0/ref=oh_aui_detailpage_o03_s00?ie=UTF8&psc=1) -  TowerPro SG90 9G micro small servo motor
 - [Neopixel RGB LED](https://www.adafruit.com/products/1734) - Optional led.
 
-##Wiring Your Servo Motor
+## Wiring Your Servo Motor
 
 Your servo motor has three wires -  Power, Ground and Data in. In this recipe I use the Tower Pro servo motor and the wires are as follows - Red (Power), Brown (Ground), Yellow (Data in). For this recipe, a software PWM library is used to control the servo motor, and I wire my setup as follows.
 
@@ -36,7 +38,7 @@ Note: In the code, you can always change the pins used.
 
 
 
-##Build
+## Build
 Get the sample code (download or clone) and go to the application folder.
 
     git clone git@github.com:victordibia/tjwave.git
@@ -63,7 +65,7 @@ The app uses Watson conversation to understand intent behind text.
   - Finally, this sample uses both audio and LED. These two hardware devices [are known to conflict](https://github.com/jgarff/rpi_ws281x#limitations) - a workaround is to disable onboard audio and use USB audio on your Pi.
 
 
-##Install Dependencies
+## Install Dependencies
 
     npm install
 
@@ -87,7 +89,7 @@ Create config.js
 
 Note: do not add your credentials to the config.default.js file.
 
-##Test Your Servo
+## Test Your Servo
 
 Before running the main code (voice + wave + dance etc), you may test your LED setup and your Servo motor to make sure the connections are correct and the library is properly installed. When you run the test module, it should turn your LED to different colors and wave your robot arm at intervals.
 
