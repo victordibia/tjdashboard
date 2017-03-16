@@ -19,6 +19,7 @@ server.wss.on('connection', function connection(ws) {
             case 'speak':
                 console.log("speaking ", message.value)
                 //  tj.speak(message.value)
+                logSpeak(message.value);
                 break;
             case 'dance':
                 //predance()
@@ -26,7 +27,7 @@ server.wss.on('connection', function connection(ws) {
 
             case 'see':
                 //see()
-                logSpeak();
+                logVision();
                 break;
 
             case 'led':
@@ -44,13 +45,13 @@ server.wss.on('connection', function connection(ws) {
 
 });
 
-function logSpeak() {
+function logSpeak(message) {
     sender = Math.random() > 0.5 ? "TJBot" : "You"
-    message = "hello"
+    message = "hello .. " + message
     var message = {
         type: "speech",
         sender: sender,
-        title: sender == "you" ? "What TJBot thinks you said" : "WHat TJBot says",
+        title: sender == "you" ? "What TJBot thinks you said:" : "WHat TJBot says",
         transcript: message,
         description: "",
         timestamp: Date.now(),

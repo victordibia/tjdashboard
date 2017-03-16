@@ -58,6 +58,7 @@ server.wss.on('connection', function connection(ws) {
                 break;
             case 'speak':
                 console.log("speaking ", message.value)
+                logSpeak("TJBot", message.value);
                 tj.speak(message.value)
                 break;
             case 'listening':
