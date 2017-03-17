@@ -54,6 +54,7 @@ function logSpeak(message) {
         title: sender == "you" ? "What TJBot thinks you said:" : "WHat TJBot says",
         transcript: message,
         description: "",
+        intent: Math.random() > 0.5 ? null : "Wave",
         timestamp: Date.now(),
         tags: [{
             title: "speech to text",

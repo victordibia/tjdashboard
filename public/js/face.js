@@ -25,46 +25,95 @@
         };
 
         ws.onmessage = function(evt) {
-            console.log("event data:", evt.data);
+            //console.log("event data:", evt.data);
             var data = JSON.parse(evt.data);
 
             var bgcolor = data.confidence >= 0.5 ? "bg-green" : "bg-red";
-            var liclass = "fa fa-bullhorn fa-3x" + bgcolor;
+            var title = "";
             var timestamp = new Date(data.timestamp);
             timestamp = timestamp.getHours() + ":" + timestamp.getMinutes() + " " + months[timestamp.getMonth()] + " " +
                 +timestamp.getDate() + " " + timestamp.getFullYear();
             var sender = data.sender;
             var image = "";
-            var transcript = data.transcript;
-            var visiontags = ""
-            if (data.type == "vision") {
-                image = "<img class='img-responsive padbottom10' src='" + data.imageurl + "' >"
-                liclass = "fa fa-camera fa-3x " + bgcolor;
-                transcript = "";
-                data.visiontags.forEach(function(tag) {
-                    visiontags = visiontags + "<a class='tagframe bg-green btn' href= '" + tag.url + "'> " + tag.title + "</a>";
-                })
-            }
-
-
-            var tags = ""
+            var transcript = "";
+            var visiontags = "";
+            var html = "";
+            var tags = "";
+            var intent = "";
             data.tags.forEach(function(tag) {
                 tags = tags + "<a class='tagframe bg-green btn' href= '" + tag.url + "'> " + tag.title + "</a>";
             })
 
-            var html = "<li>" +
-                "<i class = '" + liclass + "'></i> " +
-                "<div class='timeline-item'>" +
-                "<span class='time'><i class='fa fa-clock-o  '></i> &nbsp" + timestamp + "</span>" +
-                "<h3 class='timelinetitle'><a href='#'>" + data.type + "</a> " + data.title + "</h3>" +
-                "<div class='timeline-body'>" + image +
-                "<span class='transcript'>" + transcript + "</span>" +
-                "</div>" +
-                "<div class=''>" + tags + "</div>" +
-                "</div>" +
-                "</div> </li>";
+            if (data.intent) {
+                intent = "<div class='bg-yellow intent'> Matched Intent : " + data.intent + "</div>"
+            }
 
-            $(html).insertAfter(".time-label").hide().show("slow");
+            if (data.type == "vision") {
+                image = "<img class='img-responsive selectimage' src='" + data.imageurl + "' >"
+                liclass = "fa fa-camera fa-3x " + bgcolor;
+                transcript = "";
+                data.visiontags.forEach(function(tag) {
+                    visiontags = visiontags + "<a class='tagframe bg-green btn' href= '" + tag.url + "'> " + tag.title + "</a>";
+                });
+                html = "<div class='col-md-12'> " + image +
+                    "<div class=''>" + tags + "</div>" +
+                    "<hr />" +
+                    "</div>";
+
+            } else if (data.type == "speech") {
+                transcript = "<div class='direct-chat-text chattext'> " + data.transcript + "</div>";
+                var imgcol = "<div class='col-md-2 pad0'>   <img class='chatimg' src='/img/tj.jpg' alt='message user image'> </div>";
+                var valcol = "<div class='col-md-10'> " +
+                    "<div class='row'>" +
+                    "<span class='bg-green updatetype'> <i class='fa  fa-wechat'></i>  " + data.type + " </span> " +
+                    "<span class='bg-green updatetype'> " + data.title + "</span> " +
+                    "<span class='direct-chat-timestamp pull-right'> " + timestamp + "</span> " +
+                    transcript +
+                    intent +
+                    "<div class='tagbox' >" + tags + "</div>";
+                if (data.sender.toLowerCase() != "you") {
+                    html = "<div class='margin10 row  '>" +
+                        imgcol +
+                        valcol +
+                        "<hr />" +
+                        "</div>" +
+                        "</div>  " +
+                        "</div>  ";
+                } else {
+                    html = "<div class='margin10 row  '>" +
+                        "<div class='col-md-10 right'> " +
+                        "<div class='row'>" +
+                        "<span class='bg-green updatetype'> <i class='fa  fa-wechat'></i>  " + data.type + data.sender + " </span> " +
+                        "<span class='bg-green updatetype'> " + data.title + "</span> " +
+                        "<span class='direct-chat-timestamp pull-right'> " + timestamp + " &nbsp</span> " +
+                        transcript +
+                        intent +
+                        "<div class='tagbox' >" + tags + "</div>" +
+                        "<hr />" +
+                        "</div>" + "</div>" +
+                        "<div class='col-md-2 pad0'>   <img class='chatimg' src='/img/you.jpg' alt='message user image'> </div>";
+                    "</div>  ";
+                }
+            }
+
+            console.log(html)
+
+
+
+
+            // var html = "<li>" +
+            //     "<i class = '" + liclass + "'></i> " +
+            //     "<div class='timeline-item'>" +
+            //     "<span class='time'><i class='fa fa-clock-o  '></i> &nbsp" + timestamp + "</span>" +
+            //     "<h3 class='timelinetitle'><a href='#'>" + data.type + "</a> " + data.title + "</h3>" +
+            //     "<div class='timeline-body'>" + image +
+            //     "<span class='transcript'>" + transcript + "</span>" +
+            //     "</div>" +
+            //     "<div class=''>" + tags + "</div>" +
+            //     "</div>" +
+            //     "</div> </li>";
+
+            $(html).insertAfter(".firstitem").hide().show("slow");
 
         };
 
@@ -78,41 +127,35 @@
                 connectSocket();
             }, 3000)
         };
-
-
     }
 
 
 
 
     $("#listening").switchButton({
-        width: 130,
+        width: 110,
         height: 40,
         button_width: 70,
         labels_placement: "right"
     })
 
     $("#listening").change(function() {
-        var message = {}
-        message.event = "listening"
-        message.value = $(this).is(":checked");
 
-        ws.send(JSON.stringify(message));
-        console.log($(this).is(":checked"))
     })
 
 
 
 
     $("#lightbutton").click(function() {
-        $('#cp8').colorpicker('show');
-        $('#cp8').focus();
+        $('#lightbutton').colorpicker('show');
+        //$('#cp8').focus();
         //console.log($('#cp8').data('colorpicker').color)
     })
 
 
-    $('#cp8').colorpicker({
+    $('#lightbutton').colorpicker({
         customClass: 'colorpicker-2x',
+        color: "green",
         sliders: {
             saturation: {
                 maxLeft: 200,
@@ -149,10 +192,25 @@
         ws.send(JSON.stringify(message));
     })
 
-    $("#speakbutton").click(function() {
-        $('#speakmodal').modal({
-            show: true
-        })
+    var listeningstatus = false;
+    $("#listeningbutton").click(function() {
+
+        if (listeningstatus) {
+            $("#listeningicon").attr("class", "fa  fa-toggle-off fa-2x");
+            listeningstatus = false;
+            $("#listeningtext").text("OFF")
+        } else {
+            $("#listeningicon").attr("class", "fa  fa-toggle-on fa-2x")
+            listeningstatus = true;
+            $("#listeningtext").text("ON")
+        }
+
+        var message = {}
+        message.event = "listening"
+        message.value = listeningstatus;
+
+        ws.send(JSON.stringify(message));
+        console.log(listeningstatus)
     })
 
     $("#speaksendbutton").click(function() {

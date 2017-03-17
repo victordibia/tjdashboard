@@ -59,7 +59,9 @@ server.wss.on('connection', function connection(ws) {
             case 'speak':
                 console.log("speaking ", message.value)
                 logSpeak("TJBot", message.value);
-                tj.speak(message.value)
+                tj.speak(message.value).then(function() {
+                    tj.shine("white");
+                });
                 break;
             case 'listening':
                 console.log("toggle listening", message.value)
@@ -104,10 +106,14 @@ function startListening() {
                             } else if (matchedIntent == "off_topic") {
                                 // do nothing
                             } else {
-                                logSpeak("TJBot", conversation_response);
+
                                 tj.speak(conversation_response).then(function() {
                                     tj.shine("white");
                                 });
+                            }
+
+                            if (matchedIntent != "off_topic") {
+                                logSpeak("TJBot", conversation_response, matchedIntent + "( " + intentconfidence + ")");
                             }
 
                         } else {
@@ -137,15 +143,15 @@ function setLED(color) {
     tj.shine(color)
 }
 
-function predance(conversation_response) {
-    logSpeak("TJBot", conversation_response);
+function predance(conversation_response, intent) {
+    //logSpeak("TJBot", conversation_response, intent);
     tj.speak(conversation_response).then(function() {
         dance("club.wav")
     });
 }
 
 function wave(conversation_response) {
-    logSpeak("TJBot", conversation_response);
+    //logSpeak("TJBot", conversation_response);
     tj.speak(conversation_response).then(function() {
         // wave
         tj.wave();
@@ -155,8 +161,7 @@ function wave(conversation_response) {
 }
 
 function seeText(prompt) {
-    logSpeak("TJBot", prompt);
-    logSpeak("TJBot", prompt);
+    //logSpeak("TJBot", prompt);
     tj.speak(conversation_response).then(function() {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
@@ -178,7 +183,7 @@ function seeText(prompt) {
 }
 
 function see(conversation_response) {
-    logSpeak("TJBot", conversation_response);
+    //logSpeak("TJBot", conversation_response);
     tj.speak(conversation_response).then(function() {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
@@ -287,13 +292,14 @@ function logVision(sender, response) {
     server.sendEvent(message)
 }
 
-function logSpeak(sender, transcript) {
+function logSpeak(sender, transcript, intent) {
 
     var message = {
         type: "speech",
         sender: sender,
-        title: sender == "you" ? "What TJBot thinks you said" : "WHat TJBot says",
+        title: sender == "you" ? "What TJBot thinks you said" : "What TJBot says",
         transcript: transcript,
+        intent: intent,
         description: "",
         timestamp: Date.now(),
         tags: [{
