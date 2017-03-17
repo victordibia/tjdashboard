@@ -58,10 +58,11 @@ server.wss.on('connection', function connection(ws) {
                 break;
             case 'speak':
                 console.log("speaking ", message.value)
-                logSpeak("TJBot", message.value);
-                tj.speak(message.value).then(function() {
-                    tj.shine("white");
-                });
+                logSpeak("you", message.value);
+                converse(message.value);
+                // tj.speak(message.value).then(function() {
+                //     tj.shine("white");
+                // });
                 break;
             case 'listening':
                 console.log("toggle listening", message.value)
@@ -83,60 +84,62 @@ function startListening() {
         if (listening) {
             logSpeak("you", msg);
             // send to the conversation service
-            tj.converse(WORKSPACEID, msg, function(response, responseText) {
-                // speak the result
-                response = response.object;
-                if (response.output.text.length > 0) {
-                    //console.log(response)
-                    conversation_response = response.output.text[0];
-                    if (conversation_response != undefined) {
-                        var matchedIntent = response.intents[0].intent; // intent with the highest confidence
-                        var intentconfidence = response.intents[0].confidence;
-                        console.log("> intents : ", response.intents);
-
-                        if (intentconfidence > 0.5) {
-                            tj.shine("green");
-                            if (matchedIntent == "dance") {
-                                predance("Sure, will play some music");
-                                //dance();
-                            } else if (matchedIntent == "wave") {
-                                wave(conversation_response);
-                            } else if (matchedIntent == "see") {
-                                see(conversation_response);
-                            } else if (matchedIntent == "off_topic") {
-                                // do nothing
-                            } else {
-
-                                tj.speak(conversation_response).then(function() {
-                                    tj.shine("white");
-                                });
-                            }
-
-                            if (matchedIntent != "off_topic") {
-                                logSpeak("TJBot", conversation_response, matchedIntent + "( " + intentconfidence + ")");
-                            }
-
-                        } else {
-                            tj.shine("red");
-                            setTimeout(function() {
-                                tj.shine("white");
-                            }, 800);
-                        }
-
-                    } else {
-                        tj.shine("red");
-                        console.log("The response (output) text from your conversation is empty. Please check your conversation flow \n" + JSON.stringify(response))
-                    }
-                } else {
-                    console.error("The conversation service did not return any response text.");
-                }
-                //console.log("conversation response", response)
-            });
+            converse(msg);
         }
-
     });
-    //  }
 
+}
+
+function converse(msg) {
+    tj.converse(WORKSPACEID, msg, function(response, responseText) {
+        // speak the result
+        response = response.object;
+        if (response.output.text.length > 0) {
+            //console.log(response)
+            conversation_response = response.output.text[0];
+            if (conversation_response != undefined) {
+                var matchedIntent = response.intents[0].intent; // intent with the highest confidence
+                var intentconfidence = response.intents[0].confidence;
+                console.log("> intents : ", response.intents);
+
+                if (intentconfidence > 0.5) {
+                    tj.shine("green");
+                    if (matchedIntent == "dance") {
+                        predance("Sure, will play some music");
+                        //dance();
+                    } else if (matchedIntent == "wave") {
+                        wave(conversation_response);
+                    } else if (matchedIntent == "see") {
+                        see(conversation_response);
+                    } else if (matchedIntent == "off_topic") {
+                        // do nothing
+                    } else {
+
+                        tj.speak(conversation_response).then(function() {
+                            tj.shine("white");
+                        });
+                    }
+
+                    if (matchedIntent != "off_topic") {
+                        logSpeak("TJBot", conversation_response, matchedIntent + "(" + intentconfidence.toFixed(2) * 100 + "%)");
+                    }
+
+                } else {
+                    tj.shine("red");
+                    setTimeout(function() {
+                        tj.shine("white");
+                    }, 800);
+                }
+
+            } else {
+                tj.shine("red");
+                console.log("The response (output) text from your conversation is empty. Please check your conversation flow \n" + JSON.stringify(response))
+            }
+        } else {
+            console.error("The conversation service did not return any response text.");
+        }
+        //console.log("conversation response", response)
+    });
 }
 
 function setLED(color) {
