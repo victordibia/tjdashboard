@@ -62,7 +62,7 @@
 
             } else if (data.type == "speech") {
                 transcript = "<div class='direct-chat-text chattext'> " + data.transcript + "</div>";
-                var imgcol = "<div class='col-md-2 pad0'>   <img class='chatimg' src='/img/tj.jpg' alt='message user image'> </div>";
+                var imgcol = "<div class='col-md-2 pad0'>   <img class='chatimg' src='/img/tj.jpg' alt='message user image'> <span class='sendertitle bg-green'> " + data.sender + " </span> </div>";
                 var valcol = "<div class='col-md-10'> " +
                     "<div class='row'>" +
                     "<span class='bg-green updatetype'> <i class='fa  fa-wechat'></i>  " + data.type + " </span> " +
@@ -75,24 +75,23 @@
                     html = "<div class='margin10 row  '>" +
                         imgcol +
                         valcol +
-                        "<hr />" +
                         "</div>" +
                         "</div>  " +
-                        "</div>  ";
+                        "</div>  " + "<hr />";
                 } else {
                     html = "<div class='margin10 row  '>" +
                         "<div class='col-md-10 right'> " +
                         "<div class='row'>" +
-                        "<span class='bg-green updatetype'> <i class='fa  fa-wechat'></i>  " + data.type + data.sender + " </span> " +
+                        "<span class='bg-green updatetype'> <i class='fa  fa-wechat'></i>  " + data.type + " </span> " +
                         "<span class='bg-green updatetype'> " + data.title + "</span> " +
                         "<span class='direct-chat-timestamp pull-right'> " + timestamp + " &nbsp</span> " +
                         transcript +
                         intent +
                         "<div class='tagbox' >" + tags + "</div>" +
-                        "<hr />" +
+
                         "</div>" + "</div>" +
-                        "<div class='col-md-2 pad0'>   <img class='chatimg' src='/img/you.jpg' alt='message user image'> </div>";
-                    "</div>  ";
+                        "<div class='col-md-2 pad0'>   <img class='chatimg' src='/img/you.jpg' alt='message user image'>  <span class='sendertitle bg-green'> " + data.sender + " </span>  </div>" +
+                        "</div>  " + "<hr />";
                 }
             }
 
