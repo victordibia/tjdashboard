@@ -184,12 +184,12 @@ function seeText(prompt) {
             logVision("tjbot", curImage)
             tj.callVisualRecognition("text", filePath).then(function(response) {
                 console.log(" ... response .. ", response.description)
-                if (response.description != null) {
-                    logSpeak("TJBot", response.description);
-                    tj.speak(response.description).then(function() {
-                        tj.shine("white");
-                    })
-                }
+                response.description = (response.description == "" || response.description == null) ? "No text recognized in the image" : response.description;
+                logSpeak("TJBot", response.description);
+                tj.speak(response.description).then(function() {
+                    tj.shine("white");
+                })
+
             });
         })
 
