@@ -365,7 +365,7 @@ function detectFaces(imgsource, curImage) {
 
 function getCordinates(query, locationtype, countrycode, admindistrictcode) {
     query = query.replace(/ /g, "+")
-    var url = "https://" + config.credentials.weather.username + ":" + config.credentials.weather.password + "@" + config.credentials.weather.host + ":" + config.credentials.weather.port + "/api/weather/v3/location/search?query=" + query + "&locationType=" + locationtype + "&countryCode=" + countrycode + "&adminDistrictCode=" + admindistrictcode + "&language=en-US";
+    var url = "https://" + credentials.weather.username + ":" + credentials.weather.password + "@" + credentials.weather.host + ":" + credentials.weather.port + "/api/weather/v3/location/search?query=" + query + "&locationType=" + locationtype + "&countryCode=" + countrycode + "&adminDistrictCode=" + admindistrictcode + "&language=en-US";
     var options = {
         method: 'GET',
         url: url
@@ -387,7 +387,7 @@ function getCordinates(query, locationtype, countrycode, admindistrictcode) {
 }
 
 function getWeather(long, lat) {
-    var url = "https://" + config.credentials.weather.username + ":" + config.credentials.weather.password + "@" + config.credentials.weather.host + ":" + config.credentials.weather.port + "/api/weather/v1/geocode/" + lat + "/" + long + "/observations.json?units=m&language=en-US";
+    var url = "https://" + credentials.weather.username + ":" + credentials.weather.password + "@" + credentials.weather.host + ":" + credentials.weather.port + "/api/weather/v1/geocode/" + lat + "/" + long + "/observations.json?units=m&language=en-US";
     var options = {
         method: 'GET',
         url: url
