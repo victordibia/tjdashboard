@@ -5,7 +5,7 @@ var AudioContext = require('web-audio-api').AudioContext
 context = new AudioContext
 var request = require("request");
 var fs = require('fs');
-var fileDir = process.cwd() + "/public/img"
+var fileDir = process.cwd() + "/public/img/snaps"
 var curImage = "";
 
 
@@ -285,7 +285,7 @@ function logVision(sender, imageurl) {
         sender: sender,
         transcript: "picture taken",
         description: "",
-        imageurl: "/img/" + imageurl,
+        imageurl: "/img/snpas/" + imageurl,
         timestamp: Date.now(),
         tags: [{
             title: "visual recognition",
