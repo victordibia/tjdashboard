@@ -32,6 +32,7 @@ var config = {
 };
 
 var listening = true;
+var detectface = true;
 
 // obtain our configs from config.js and merge with custom configs
 config = Object.assign(constants.config, config);
@@ -66,19 +67,20 @@ server.wss.on('connection', function connection(ws) {
                 break;
             case 'led':
                 console.log("shinning led ", message.color)
-                tj.shine(message.color)
+                tj.shine(message.color);
                 break;
             case 'speak':
-                console.log("speaking ", message.value)
+                console.log("speaking ", message.value);
                 logSpeak("you", message.value);
                 converse(message.value);
-                // tj.speak(message.value).then(function() {
-                //     tj.shine("white");
-                // });
                 break;
             case 'listening':
-                console.log("toggle listening", message.value)
+                console.log("toggle listening", message.value);
                 listening = message.value;
+                break;
+            case 'detectface':
+                console.log("toggle detectface", message.value)
+                detectface = message.value;
                 break;
         }
     });
@@ -201,7 +203,14 @@ function see(conversation_response) {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
         tj.captureImage(filePath).then(function(filePath) {
-            detectFaces(filePath, curImage);
+            if (detectface) {
+                detectFaces(filePath, curImage);
+            } else {
+                var response = {};
+                response.imageurl = curImage;
+                response.transcript = "";
+                logVision("tjbot", response);
+            }
 
             tj.callVisualRecognition("classify", filePath).then(function(response) {
                 console.log(" ... response .. ", response.description)
@@ -345,7 +354,7 @@ function detectFaces(imgsource, curImage) {
     cv.readImage(imgsource, function(err, im) {
         if (err) throw err;
         if (im.width() < 1 || im.height() < 1) throw new Error('Image has no size');
-        im.detectObject("haar/facefront.xml", {}, function(err, faces) {
+        im.detectObject("haar/face.xml", {}, function(err, faces) {
             if (err) throw err;
             for (var i = 0; i < faces.length; i++) {
                 var face = faces[i];

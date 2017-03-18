@@ -192,6 +192,8 @@
         ws.send(JSON.stringify(message));
     })
 
+
+
     $("#seetextbutton").click(function() {
         var message = {}
         message.event = "seetext"
@@ -217,6 +219,25 @@
 
         ws.send(JSON.stringify(message));
         console.log(listeningstatus)
+    })
+
+    var facedetectstatus = false;
+    $("#facedetectbutton").click(function() {
+        if (facedetectstatus) {
+            $("#facedetecticon").attr("class", "fa  fa-toggle-off fa-2x");
+            facedetectstatus = false;
+            $("#facedetecttext").text("OFF")
+        } else {
+            $("#facedetecticon").attr("class", "fa  fa-toggle-on fa-2x")
+            facedetectstatus = true;
+            $("#facedetecttext").text("ON")
+        }
+        var message = {}
+        message.event = "detectface"
+        message.value = facedetectstatus;
+
+        ws.send(JSON.stringify(message));
+        console.log(facedetectstatus)
     })
 
     $("#speaksendbutton").click(function() {
