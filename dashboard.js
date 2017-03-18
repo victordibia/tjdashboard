@@ -181,9 +181,8 @@ function seeText(prompt) {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
         tj.captureImage(filePath).then(function(filePath) {
+            logVision("tjbot", filePath)
             tj.callVisualRecognition("text", filePath).then(function(response) {
-                response.imageurl = curImage;
-                logVision("tjbot", response)
                 console.log(" ... response .. ", response.description)
                 if (response.description != null) {
                     logSpeak("TJBot", response.description);
@@ -203,9 +202,8 @@ function see(conversation_response) {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
         tj.captureImage(filePath).then(function(filePath) {
+            logVision("tjbot", filePath)
             tj.callVisualRecognition("classify", filePath).then(function(response) {
-                response.imageurl = curImage;
-                logVision("tjbot", response)
                 console.log(" ... response .. ", response.description)
                 if (response.description != null) {
                     logSpeak("TJBot", response.description);
@@ -278,14 +276,14 @@ function findPeaks(audioBuffer, sampleRate, soundFile) {
     tj.playSound(soundFile);
 }
 
-function logVision(sender, response) {
+function logVision(sender, imageurl) {
     var message = {
         type: "vision",
         title: "What TJBot Sees",
         sender: sender,
-        transcript: response.description,
+        transcript: "picture taken",
         description: "",
-        imageurl: "/img/" + response.imageurl,
+        imageurl: "/img/" + imageurl,
         timestamp: Date.now(),
         tags: [{
             title: "visual recognition",
