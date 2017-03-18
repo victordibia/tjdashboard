@@ -181,10 +181,13 @@ function seeText(prompt) {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
         tj.captureImage(filePath).then(function(filePath) {
+            var response = {};
+            response.imageurl = curImage;
+            response.transcript = "Scanning for text."
             logVision("tjbot", curImage)
             tj.callVisualRecognition("text", filePath).then(function(response) {
                 console.log(" ... response .. ", response.description)
-                response.description = (response.description == "" || response.description == null) ? "No text recognized in the image" : "The words I see are : " + response.description;
+                response.description = (response.description == "" || response.description == null) ? "No text recognized in the image." : "The words I see are : " + response.description;
                 logSpeak("TJBot", response.description);
                 tj.speak(response.description).then(function() {
                     tj.shine("white");
@@ -278,12 +281,11 @@ function findPeaks(audioBuffer, sampleRate, soundFile) {
 }
 
 function logVision(sender, response) {
-
     var message = {
         type: "vision",
         title: "What TJBot Sees",
         sender: sender,
-        transcript: response.facecount + " faces.",
+        transcript: response.transcript,
         description: "",
         imageurl: "/img/snaps/" + response.imageurl,
         timestamp: Date.now(),
@@ -358,7 +360,7 @@ function detectFaces(imgsource, curImage) {
             im.save(imgsource);
             var response = {};
             response.imageurl = curImage;
-            response.facecount = faces.length;
+            response.transcript = faces.length + " faces detected.";
             logVision("tjbot", response)
             console.log('Image saved to ', imgsource);
         });
