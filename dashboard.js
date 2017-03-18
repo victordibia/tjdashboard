@@ -177,7 +177,7 @@ function wave(conversation_response) {
 
 function seeText(prompt) {
     //logSpeak("TJBot", prompt);
-    tj.speak(conversation_response).then(function() {
+    tj.speak(prompt).then(function() {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
         tj.captureImage(filePath).then(function(filePath) {
