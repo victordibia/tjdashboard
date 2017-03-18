@@ -181,7 +181,7 @@ function seeText(prompt) {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
         tj.captureImage(filePath).then(function(filePath) {
-            logVision("tjbot", filePath)
+            logVision("tjbot", curImage)
             tj.callVisualRecognition("text", filePath).then(function(response) {
                 console.log(" ... response .. ", response.description)
                 if (response.description != null) {
@@ -202,7 +202,7 @@ function see(conversation_response) {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
         tj.captureImage(filePath).then(function(filePath) {
-            logVision("tjbot", filePath)
+            logVision("tjbot", curImage)
             tj.callVisualRecognition("classify", filePath).then(function(response) {
                 console.log(" ... response .. ", response.description)
                 if (response.description != null) {
