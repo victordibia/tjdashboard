@@ -9,7 +9,7 @@
     "jquery-ui": "^1.12.1",
     "pug": "^2.0.0-beta11",
     "request": "^2.81.0",
-    "tjbot": "latest",
+    "tjbot": "git://github.com/victordibia/tjbotlib.git",
     "ws": "^2.0.3"
   },
   "devDependencies": {},
