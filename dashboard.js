@@ -1,6 +1,6 @@
 var server = require("./server");
 var tjbot = require('tjbot');
-var config = require('./config');
+var constants = require('./config');
 var AudioContext = require('web-audio-api').AudioContext
 context = new AudioContext
 var request = require("request");
@@ -8,18 +8,19 @@ var fs = require('fs');
 var fileDir = process.cwd() + "/public/img"
 var curImage = "";
 
+
 // obtain our credentials from config.js
-var credentials = config.credentials;
+var credentials = constants.credentials;
 
 // obtain user-specific config
-var VOICE = config.voice;
-var WORKSPACEID = config.conversationWorkspaceId;
+var VOICE = constants.config.voice;
+var WORKSPACEID = constants.config.conversationWorkspaceId;
 
 // these are the hardware capabilities that TJ needs for this recipe
 var hardware = ['microphone', 'speaker', 'led', 'servo'];
 
 // Set up configuration paramters
-var tjConfig = {
+var config = {
     verboseLogging: true, //enable console debugging
     servoPin: 7, // set servo pin
     cameraParams: {
@@ -32,8 +33,11 @@ var tjConfig = {
 
 var listening = true;
 
+// obtain our configs from config.js and merge with custom configs
+config = Object.assign(constants.config, config);
+
 // instantiate our TJBot!
-var tj = new tjbot(hardware, tjConfig, credentials);
+var tj = new tjbot(hardware, config, credentials);
 
 server.wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
