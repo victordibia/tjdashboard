@@ -345,7 +345,7 @@ function detectFaces(imgsource, curImage) {
     cv.readImage(imgsource, function(err, im) {
         if (err) throw err;
         if (im.width() < 1 || im.height() < 1) throw new Error('Image has no size');
-        im.detectObject("haar/face.xml", {}, function(err, faces) {
+        im.detectObject("haar/frontalface.xml", {}, function(err, faces) {
             if (err) throw err;
             for (var i = 0; i < faces.length; i++) {
                 var face = faces[i];
