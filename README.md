@@ -57,6 +57,16 @@ Install ALSA tools (required for recording audio on Raspberry Pi). (Some of the 
     sudo apt-get install alsa-base alsa-utils
     sudo apt-get install libasound2-dev
 
+## Vision Recognition with opencv
+
+You can run simple machine vision algorithms locally on your raspberry pi. This is done using the nodejs opencv wrapper. But first, you have to install open cv on your pi.
+
+    sudo apt-get install build-essential
+    sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+    sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+    sudo apt-get install libopencv-dev
+
+
 ## Setup Watson conversation
 The app uses Watson conversation to understand intent behind text.
 
