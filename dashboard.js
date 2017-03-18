@@ -278,7 +278,7 @@ function findPeaks(audioBuffer, sampleRate, soundFile) {
 }
 
 function logVision(sender, response) {
-    console.log(imageurl)
+
     var message = {
         type: "vision",
         title: "What TJBot Sees",
