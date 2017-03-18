@@ -184,7 +184,7 @@ function seeText(prompt) {
             var response = {};
             response.imageurl = curImage;
             response.transcript = "Scanning for text."
-            logVision("tjbot", curImage)
+            logVision("tjbot", response)
             tj.callVisualRecognition("text", filePath).then(function(response) {
                 console.log(" ... response .. ", response.description)
                 response.description = (response.description == "" || response.description == null) ? "No text recognized in the image." : "The words I see are : " + response.description;
