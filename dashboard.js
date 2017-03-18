@@ -285,7 +285,7 @@ function logVision(sender, imageurl) {
         sender: sender,
         transcript: "picture taken",
         description: "",
-        imageurl: "/img/snpas/" + imageurl,
+        imageurl: "/img/snaps" + imageurl,
         timestamp: Date.now(),
         tags: [{
             title: "visual recognition",
