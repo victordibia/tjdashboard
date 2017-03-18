@@ -203,6 +203,7 @@ function see(conversation_response) {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
         tj.captureImage(filePath).then(function(filePath) {
+            console.log(" ==== face ===", detectface);
             if (detectface) {
                 detectFaces(filePath, curImage);
             } else {
