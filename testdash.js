@@ -38,52 +38,52 @@ config = Object.assign(constants.config, config);
 
 // instantiate our TJBot!
 var tj = new tjbot(hardware, config, credentials);
-
-server.wss.on('connection', function connection(ws) {
-    ws.on('message', function incoming(message) {
-        message = JSON.parse(message)
-        console.log("beee", (message));
-        switch (message.event) {
-            case 'wave':
-                var prompt = "Waving my arm. Just for you. ";
-                logSpeak("TJBot", prompt);
-                wave(prompt)
-                break;
-            case 'dance':
-                var prompt = "Sure. I'll play some music and dance.";
-                logSpeak("TJBot", prompt);
-                predance(prompt)
-                break;
-            case 'see':
-                var prompt = "A moment. Let me look around.";
-                logSpeak("TJBot", prompt);
-                see(prompt)
-                break;
-            case 'seetext':
-                var prompt = "Sure. Scanning for text in the image.";
-                logSpeak("TJBot", prompt);
-                seeText(prompt)
-                break;
-            case 'led':
-                console.log("shinning led ", message.color)
-                tj.shine(message.color)
-                break;
-            case 'speak':
-                console.log("speaking ", message.value)
-                logSpeak("you", message.value);
-                converse(message.value);
-                // tj.speak(message.value).then(function() {
-                //     tj.shine("white");
-                // });
-                break;
-            case 'listening':
-                console.log("toggle listening", message.value)
-                listening = message.value;
-                break;
-        }
-    });
-
-});
+//
+// server.wss.on('connection', function connection(ws) {
+//     ws.on('message', function incoming(message) {
+//         message = JSON.parse(message)
+//         console.log("beee", (message));
+//         switch (message.event) {
+//             case 'wave':
+//                 var prompt = "Waving my arm. Just for you. ";
+//                 logSpeak("TJBot", prompt);
+//                 wave(prompt)
+//                 break;
+//             case 'dance':
+//                 var prompt = "Sure. I'll play some music and dance.";
+//                 logSpeak("TJBot", prompt);
+//                 predance(prompt)
+//                 break;
+//             case 'see':
+//                 var prompt = "A moment. Let me look around.";
+//                 logSpeak("TJBot", prompt);
+//                 see(prompt)
+//                 break;
+//             case 'seetext':
+//                 var prompt = "Sure. Scanning for text in the image.";
+//                 logSpeak("TJBot", prompt);
+//                 seeText(prompt)
+//                 break;
+//             case 'led':
+//                 console.log("shinning led ", message.color)
+//                 tj.shine(message.color)
+//                 break;
+//             case 'speak':
+//                 console.log("speaking ", message.value)
+//                 logSpeak("you", message.value);
+//                 converse(message.value);
+//                 // tj.speak(message.value).then(function() {
+//                 //     tj.shine("white");
+//                 // });
+//                 break;
+//             case 'listening':
+//                 console.log("toggle listening", message.value)
+//                 listening = message.value;
+//                 break;
+//         }
+//     });
+//
+// });
 
 startListening();
 
@@ -334,34 +334,34 @@ function logSpeak(sender, transcript, intent) {
     server.sendEvent(message)
 }
 
-var cv = require('opencv');
-
-function detectFaces(imgsource, curImage) {
-    var starttime = Date.now();
-    var endtime;
-    var COLOR = [0, 255, 255]; // default red
-    var thickness = 1; // default 1
-
-    cv.readImage(imgsource, function(err, im) {
-        if (err) throw err;
-        if (im.width() < 1 || im.height() < 1) throw new Error('Image has no size');
-        im.detectObject("haar/face.xml", {}, function(err, faces) {
-            if (err) throw err;
-            for (var i = 0; i < faces.length; i++) {
-                var face = faces[i];
-                im.rectangle([face.x, face.y], [face.width, face.height], COLOR, 2);
-            }
-            endtime = Date.now()
-            console.log("faces found: ", faces.length, "timetaken: ", (endtime - starttime) / 1000)
-            im.save(imgsource);
-            var response = {};
-            response.imageurl = curImage;
-            response.transcript = faces.length + " faces detected.";
-            logVision("tjbot", response)
-            console.log('Image saved to ', imgsource);
-        });
-    });
-}
+// var cv = require('opencv');
+//
+// function detectFaces(imgsource, curImage) {
+//     var starttime = Date.now();
+//     var endtime;
+//     var COLOR = [0, 255, 255]; // default red
+//     var thickness = 1; // default 1
+//
+//     cv.readImage(imgsource, function(err, im) {
+//         if (err) throw err;
+//         if (im.width() < 1 || im.height() < 1) throw new Error('Image has no size');
+//         im.detectObject("haar/face.xml", {}, function(err, faces) {
+//             if (err) throw err;
+//             for (var i = 0; i < faces.length; i++) {
+//                 var face = faces[i];
+//                 im.rectangle([face.x, face.y], [face.width, face.height], COLOR, 2);
+//             }
+//             endtime = Date.now()
+//             console.log("faces found: ", faces.length, "timetaken: ", (endtime - starttime) / 1000)
+//             im.save(imgsource);
+//             var response = {};
+//             response.imageurl = curImage;
+//             response.transcript = faces.length + " faces detected.";
+//             logVision("tjbot", response)
+//             console.log('Image saved to ', imgsource);
+//         });
+//     });
+// }
 
 function getCordinates(query, locationtype, countrycode, admindistrictcode) {
     query = query.replace(/ /g, "+")
