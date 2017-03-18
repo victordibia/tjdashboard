@@ -184,7 +184,7 @@ function seeText(prompt) {
             logVision("tjbot", curImage)
             tj.callVisualRecognition("text", filePath).then(function(response) {
                 console.log(" ... response .. ", response.description)
-                response.description = (response.description == "" || response.description == null) ? "No text recognized in the image" : response.description;
+                response.description = (response.description == "" || response.description == null) ? "No text recognized in the image" : "The words I see are : " + response.description;
                 logSpeak("TJBot", response.description);
                 tj.speak(response.description).then(function() {
                     tj.shine("white");
