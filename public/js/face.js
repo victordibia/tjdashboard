@@ -88,7 +88,6 @@
                         transcript +
                         intent +
                         "<div class='tagbox' >" + tags + "</div>" +
-
                         "</div>" + "</div>" +
                         "<div class='col-md-2 pad0'>   <img class='chatimg' src='/img/you.jpg' alt='message user image'>  <span class='sendertitle bg-green'> " + data.sender + " </span>  </div>" +
                         "</div>  " + "<hr />";
@@ -191,6 +190,12 @@
         ws.send(JSON.stringify(message));
     })
 
+    $("#seetextbutton").click(function() {
+        var message = {}
+        message.event = "seetext"
+        ws.send(JSON.stringify(message));
+    })
+
     var listeningstatus = false;
     $("#listeningbutton").click(function() {
 
@@ -231,6 +236,7 @@
         if (message.value != "") {
             ws.send(JSON.stringify(message));
         }
+        $("#speakinputmessage").val("");
     }
 
 

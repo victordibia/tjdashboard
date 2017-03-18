@@ -41,16 +41,24 @@ server.wss.on('connection', function connection(ws) {
         console.log("beee", (message));
         switch (message.event) {
             case 'wave':
-                wave("Waving my arm. Just for you")
+                var prompt = "Waving my arm. Just for you. ";
+                logSpeak("TJBot", prompt);
+                wave(prompt)
                 break;
             case 'dance':
-                predance("Sure. I'll play some music and dance.")
+                var prompt = "Sure. I'll play some music and dance.";
+                logSpeak("TJBot", prompt);
+                predance(prompt)
                 break;
             case 'see':
-                see("Taking a picture!")
+                var prompt = "A moment. Let me look around.";
+                logSpeak("TJBot", prompt);
+                see(prompt)
                 break;
-            case 'text':
-                seeText("Scanning for text in the image")
+            case 'seetext':
+                var prompt = "Sure. Scanning for text in the image.";
+                logSpeak("TJBot", prompt);
+                seeText(prompt)
                 break;
             case 'led':
                 console.log("shinning led ", message.color)
@@ -113,15 +121,15 @@ function converse(msg) {
                         see(conversation_response);
                     } else if (matchedIntent == "off_topic") {
                         // do nothing
+                    } else if (matchedIntent == "weather") {
+                        // do nothing
                     } else {
-
                         tj.speak(conversation_response).then(function() {
                             tj.shine("white");
                         });
                     }
-
                     if (matchedIntent != "off_topic") {
-                        logSpeak("TJBot", conversation_response, matchedIntent + "(" + intentconfidence.toFixed(2) * 100 + "%)");
+                        logSpeak("TJBot", conversation_response, matchedIntent + " (" + intentconfidence.toFixed(2) * 100 + "%)");
                     }
 
                 } else {

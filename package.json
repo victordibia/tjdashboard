@@ -8,13 +8,17 @@
     "express": "^4.14.1",
     "jquery-ui": "^1.12.1",
     "pug": "^2.0.0-beta11",
-    "request": "^2.79.0",
+    "request": "^2.81.0",
     "tjbot": "latest",
     "ws": "^2.0.3"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "optionalDependencies": {
+    "//": "Open CV needs to be installed on your raspberry first before installing this wrapper library.",
+    "opencv": "latest"
   },
   "repository": {
     "type": "git",

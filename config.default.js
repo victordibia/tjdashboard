@@ -34,3 +34,13 @@ exports.credentials.visual_recognition = {
     key: '',
     version: '2016-05-19'
 }
+
+// IBM Weather Company
+// https://www.ibm.com/watson/developercloud/text-to-speech.html
+exports.credentials.weather = {
+    url: "",
+    username: ' ',
+    password: ' ',
+    host: " ",
+    port: 443,
+};
