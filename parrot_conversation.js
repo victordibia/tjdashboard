@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-var tjbot = require('../lib/tjbot');
+var tjbot = require('tjbot');
 var constants = require('./config');
 
 // these are the hardware capabilities that TJ needs for this recipe
