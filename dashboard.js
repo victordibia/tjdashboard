@@ -336,6 +336,8 @@ function logSpeak(sender, transcript, intent) {
     server.sendEvent(message)
 }
 
+var cv = require('opencv');
+
 function detectFaces(imgsource) {
     var starttime = Date.now();
     var endtime;
