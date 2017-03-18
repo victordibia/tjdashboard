@@ -55,7 +55,9 @@
                 data.visiontags.forEach(function(tag) {
                     visiontags = visiontags + "<a class='tagframe bg-green btn' href= '" + tag.url + "'> " + tag.title + "</a>";
                 });
-                html = "<div class='col-md-12'> " + image +
+                html = "<div class='col-md-12'> " +
+                    "<span class='bg-green updatetype'> <i class='fa  fa-camera'></i>  " + "Picture Taken!" + " </span> " +
+                    image +
                     "<div class=''>" + tags + "</div>" +
                     "<hr />" +
                     "</div>";
