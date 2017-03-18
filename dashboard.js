@@ -122,7 +122,7 @@ function converse(msg) {
                     } else if (matchedIntent == "off_topic") {
                         // do nothing
                     } else if (matchedIntent == "weather") {
-                        // do nothing
+                        getCordinates("Las vegas", "city", "US", "NV");
                     } else {
                         tj.speak(conversation_response).then(function() {
                             tj.shine("white");
@@ -330,4 +330,54 @@ function logSpeak(sender, transcript, intent) {
     }
     //console.log(message)
     server.sendEvent(message)
+}
+
+function getCordinates(query, locationtype, countrycode, admindistrictcode) {
+    query = query.replace(/ /g, "+")
+    var url = "https://" + config.credentials.weather.username + ":" + config.credentials.weather.password + "@" + config.credentials.weather.host + ":" + config.credentials.weather.port + "/api/weather/v3/location/search?query=" + query + "&locationType=" + locationtype + "&countryCode=" + countrycode + "&adminDistrictCode=" + admindistrictcode + "&language=en-US";
+    var options = {
+        method: 'GET',
+        url: url
+    }
+    request(options, function(error, response, body) {
+
+        if (!error && response.statusCode == 200) {
+            var result = JSON.parse(body)
+            //console.log(result)
+            var longitude = result.location.longitude[0];
+            var latitude = result.location.latitude[0];
+            //console.log(longitude, latitude);
+            getWeather(longitude, latitude)
+        } else {
+            console.log("Error getting cordinates")
+        }
+    });
+
+}
+
+function getWeather(long, lat) {
+    var url = "https://" + config.credentials.weather.username + ":" + config.credentials.weather.password + "@" + config.credentials.weather.host + ":" + config.credentials.weather.port + "/api/weather/v1/geocode/" + lat + "/" + long + "/observations.json?units=m&language=en-US";
+    var options = {
+        method: 'GET',
+        url: url
+    }
+    request(options, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var result = JSON.parse(body)
+            var ob = result.observation
+            var location = ob.obs_name;
+            var temp = ob.temp;
+            var desc = ob.wx_phrase;
+            var feelslike = ob.feels_like;
+            var windspeed = ob.wspd + " km/h";
+            var uv = ob.uv_desc;
+            var alldesc = "The weather in " + location + " today is " + desc + " with a temperature of " + temp + " that feels more like " +
+                feelslike + ". Wind speed is " + windspeed + " and UV is " + uv;
+            console.log(alldesc);
+            logSpeak("TJBot", alldesc);
+            tj.speak(alldesc);
+        } else {
+            console.log("weather error")
+        }
+    });
 }

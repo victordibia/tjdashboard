@@ -110,14 +110,11 @@ function logVision() {
 
 //45.42, -75.69
 //getWeather(-115.1728, 36.1699);
-getCordinates("Las Vegas", "city", "US", "NV");
+getCordinates("Las vegas", "city", "US", "NV");
 
 function getCordinates(query, locationtype, countrycode, admindistrictcode) {
-    //GET https: //<username>:<password>@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US
-
     query = query.replace(/ /g, "+")
-    var url = "https://" + config.credentials.weather.username + ":" + config.credentials.weather.password + "@" + config.credentials.weather.host + ":" + config.credentials.weather.port + "/api/weather/v3/location/search?query=" + query + "&locationType=" + locationtype + "&countryCode=" + countrycode + "&adminDistrictCode=" + admindistrictcode + "&language=en-US"
-    console.log(url)
+    var url = "https://" + config.credentials.weather.username + ":" + config.credentials.weather.password + "@" + config.credentials.weather.host + ":" + config.credentials.weather.port + "/api/weather/v3/location/search?query=" + query + "&locationType=" + locationtype + "&countryCode=" + countrycode + "&adminDistrictCode=" + admindistrictcode + "&language=en-US";
     var options = {
         method: 'GET',
         url: url
@@ -126,30 +123,28 @@ function getCordinates(query, locationtype, countrycode, admindistrictcode) {
 
         if (!error && response.statusCode == 200) {
             var result = JSON.parse(body)
+            //console.log(result)
             var longitude = result.location.longitude[0];
             var latitude = result.location.latitude[0];
-            console.log(longitude, latitude);
+            //console.log(longitude, latitude);
             getWeather(longitude, latitude)
         } else {
-            console.log("weather error")
+            console.log("Error getting cordinates")
         }
     });
 
 }
 
 function getWeather(long, lat) {
-    var url = "https://" + config.credentials.weather.username + ":" + config.credentials.weather.password + "@" + config.credentials.weather.host + ":" + config.credentials.weather.port + "/api/weather/v1/geocode/" + long + "/" + lat + "/observations.json?units=m&language=en-US";
-    console.log(url)
+    var url = "https://" + config.credentials.weather.username + ":" + config.credentials.weather.password + "@" + config.credentials.weather.host + ":" + config.credentials.weather.port + "/api/weather/v1/geocode/" + lat + "/" + long + "/observations.json?units=m&language=en-US";
     var options = {
         method: 'GET',
         url: url
     }
     request(options, function(error, response, body) {
-
         if (!error && response.statusCode == 200) {
             var result = JSON.parse(body)
             var ob = result.observation
-
             var location = ob.obs_name;
             var temp = ob.temp;
             var desc = ob.wx_phrase;
@@ -157,11 +152,10 @@ function getWeather(long, lat) {
             var windspeed = ob.wspd + " km/h";
             var uv = ob.uv_desc;
             var alldesc = "The weather in " + location + " today is " + desc + " with a temperature of " + temp + " that feels more like " +
-                feelslike + ". Wind speed is" + windspeed + " and UV is " + uv;
+                feelslike + ". Wind speed is " + windspeed + " and UV is " + uv;
             console.log(alldesc);
         } else {
             console.log("weather error")
         }
     });
-
 }
