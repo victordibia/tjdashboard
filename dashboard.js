@@ -32,7 +32,7 @@ var config = {
 };
 
 var listening = true;
-var detectface = true;
+var detectface = false;
 
 // obtain our configs from config.js and merge with custom configs
 config = Object.assign(constants.config, config);
