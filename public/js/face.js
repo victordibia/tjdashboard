@@ -56,7 +56,7 @@
                     visiontags = visiontags + "<a class='tagframe bg-green btn' href= '" + tag.url + "'> " + tag.title + "</a>";
                 });
                 html = "<div class='col-md-12'> " +
-                    "<span class='bg-green updatetype'> <i class='fa  fa-camera'></i>  " + "Picture Taken!" + " </span> " +
+                    "<span class='bg-green updatetype'> <i class='fa  fa-camera'></i>  " + "Picture Taken. " + data.transcript + " </span> " +
                     image +
                     "<div class=''>" + tags + "</div>" +
                     "<hr />" +

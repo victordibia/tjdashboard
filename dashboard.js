@@ -202,8 +202,8 @@ function see(conversation_response) {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
         tj.captureImage(filePath).then(function(filePath) {
-            detectFaces(filePath);
-            logVision("tjbot", curImage)
+            detectFaces(filePath, curImage);
+
             tj.callVisualRecognition("classify", filePath).then(function(response) {
                 console.log(" ... response .. ", response.description)
                 if (response.description != null) {
@@ -277,15 +277,15 @@ function findPeaks(audioBuffer, sampleRate, soundFile) {
     tj.playSound(soundFile);
 }
 
-function logVision(sender, imageurl) {
+function logVision(sender, response) {
     console.log(imageurl)
     var message = {
         type: "vision",
         title: "What TJBot Sees",
         sender: sender,
-        transcript: "picture taken",
+        transcript: response.facecount + " faces.",
         description: "",
-        imageurl: "/img/snaps" + imageurl,
+        imageurl: "/img/snaps/" + response.imageurl,
         timestamp: Date.now(),
         tags: [{
             title: "visual recognition",
@@ -338,7 +338,7 @@ function logSpeak(sender, transcript, intent) {
 
 var cv = require('opencv');
 
-function detectFaces(imgsource) {
+function detectFaces(imgsource, curImage) {
     var starttime = Date.now();
     var endtime;
     var COLOR = [0, 255, 255]; // default red
@@ -356,6 +356,10 @@ function detectFaces(imgsource) {
             endtime = Date.now()
             console.log("faces found: ", faces.length, "timetaken: ", (endtime - starttime) / 1000)
             im.save(imgsource);
+            var response = {};
+            response.imageurl = curImage;
+            response.facecount = faces.length;
+            logVision("tjbot", response)
             console.log('Image saved to ', imgsource);
         });
     });
