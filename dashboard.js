@@ -202,6 +202,7 @@ function see(conversation_response) {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
         tj.captureImage(filePath).then(function(filePath) {
+            detectFaces(filePath);
             logVision("tjbot", curImage)
             tj.callVisualRecognition("classify", filePath).then(function(response) {
                 console.log(" ... response .. ", response.description)
@@ -333,6 +334,29 @@ function logSpeak(sender, transcript, intent) {
     }
     //console.log(message)
     server.sendEvent(message)
+}
+
+function detectFaces(imgsource) {
+    var starttime = Date.now();
+    var endtime;
+    var COLOR = [0, 255, 255]; // default red
+    var thickness = 1; // default 1
+
+    cv.readImage(imgsource, function(err, im) {
+        if (err) throw err;
+        if (im.width() < 1 || im.height() < 1) throw new Error('Image has no size');
+        im.detectObject("haar/face.xml", {}, function(err, faces) {
+            if (err) throw err;
+            for (var i = 0; i < faces.length; i++) {
+                var face = faces[i];
+                im.rectangle([face.x, face.y], [face.width, face.height], COLOR, 2);
+            }
+            endtime = Date.now()
+            console.log("faces found: ", faces.length, "timetaken: ", (endtime - starttime) / 1000)
+            im.save(imgsource);
+            console.log('Image saved to ', imgsource);
+        });
+    });
 }
 
 function getCordinates(query, locationtype, countrycode, admindistrictcode) {
