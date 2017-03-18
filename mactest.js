@@ -110,7 +110,7 @@ function logVision() {
 
 //45.42, -75.69
 //getWeather(-115.1728, 36.1699);
-getCordinates("Las vegas", "city", "US", "NV");
+//getCordinates("Las vegas", "city", "US", "NV");
 
 function getCordinates(query, locationtype, countrycode, admindistrictcode) {
     query = query.replace(/ /g, "+")
