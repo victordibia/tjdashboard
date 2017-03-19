@@ -10,6 +10,7 @@ In addition, it also provides UI/buttons that can be used to control the bot e.g
 ## How It Works
 - Starts up a webserver (express) and serves up an interface which can be assessed via a browser on the pi localhost, port 8068. http:pi.ip.address:8068.
 - TJBot events are streamed to the interface which displays them. Examples of events include hearing a new message, receiving a response from a call to the conversation service etc.
+- Note. This recipe utilizes the experimental [TJBot library](https://github.com/ibmtjbot/tjbotlib) to encapsulate simple functions for the bot.
 
 
 ## Hardware
