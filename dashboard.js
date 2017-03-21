@@ -35,6 +35,7 @@ var config = {
 var listening = true;
 var detectface = false;
 var detecttone = false;
+var currentusername = "you";
 
 // obtain our configs from config.js and merge with custom configs
 config = Object.assign(constants.config, config);
@@ -73,7 +74,7 @@ server.wss.on('connection', function connection(ws) {
                 break;
             case 'speak':
                 console.log("speaking ", message.value);
-                logSpeak("you", message.value);
+                logSpeak(currentusername, message.value);
                 converse(message.value);
                 break;
             case 'listening':
@@ -99,13 +100,20 @@ startListening();
 function startListening() {
     tj.listen(function(msg) {
         if (listening) {
-            logSpeak("you", msg);
+            logSpeak(currentusername, msg);
             yourwords = yourwords + " " + msg;
-            if (detecttone) analyzeTone()
+            if (detecttone) analyzeTone();
+            checkName(msg);
             // send to the conversation service
             converse(msg);
         }
     });
+}
+
+function checkName(msg) {
+    if (msg.indexOf("my name is") > -1) {
+        currentusername = msg.replace("my name is ", "")
+    }
 }
 
 function logTone(max, tones) {
@@ -130,27 +138,6 @@ function logTone(max, tones) {
     server.sendEvent(message)
 }
 
-function logTone(max, tones) {
-    var message = {
-        type: "tone",
-        sender: "TJBot",
-        title: "Analyzing your sentiment",
-        transcript: "message",
-        description: "",
-        tones: tones,
-        timestamp: Date.now(),
-        tags: [{
-            title: "tone analyzer",
-            url: "#"
-        }, {
-            title: "speech to text",
-            url: "#"
-        }],
-        confidence: 1
-    }
-    console.log(message)
-    server.sendEvent(message)
-}
 
 function converse(msg) {
     tj.converse(WORKSPACEID, msg, function(response, responseText) {
