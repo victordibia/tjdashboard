@@ -134,3 +134,11 @@ Sample utterances are
 You can add more utterances by creating additional intents on your watson conversation dialog.
 
 For the dance command, your robot processes wav files in the sounds folder. Please ensure you have a .wav file there and set that as your sound file.
+
+
+// Watson Tone Analyzer
+// https://www.ibm.com/watson/developercloud/text-to-speech.html
+exports.credentials.tone_analyzer = {
+    password: 'BVDyeag8QwYA',
+    username: 'dccfafae-a21a-4939-be38-ea637c224a49'
+};
