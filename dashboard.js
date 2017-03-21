@@ -88,7 +88,7 @@ server.wss.on('connection', function connection(ws) {
             case 'tone':
                 console.log("toggle tone", message.value)
                 detecttone = message.value;
-                if (!tone) yourwords = "";
+                if (!detecttone) yourwords = "";
                 break;
         }
     });
