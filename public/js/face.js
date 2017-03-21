@@ -76,7 +76,7 @@
                     transcript +
                     intent +
                     "<div class='tagbox' >" + tags + "</div>";
-                if (data.sender.toLowerCase() != "you") {
+                if (data.sender.toLowerCase() === "tjbot") {
                     html = "<div class='margin10 row  '>" +
                         imgcol +
                         valcol +
