@@ -103,9 +103,7 @@
                 var tonebars = "";
 
                 data.tones.forEach(function(tone) {
-                    var score = tone.score.toFixed(2) * 100;
-
-
+                    var score = tone.score.toFixed(0) * 100;
                     tonebars = tonebars + "<div class='mybar row'> " +
                         "<div class='col-md-2 barlabel '> " + tone.tone_id + " ( " + score + " %) </div> " +
                         "<div class='progress progress-xs active bartop'> " +
