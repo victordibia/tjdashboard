@@ -34,6 +34,7 @@ var config = {
 
 var listening = true;
 var detectface = false;
+var detecttone = false;
 
 // obtain our configs from config.js and merge with custom configs
 config = Object.assign(constants.config, config);
@@ -83,6 +84,11 @@ server.wss.on('connection', function connection(ws) {
                 console.log("toggle detectface", message.value)
                 detectface = message.value;
                 break;
+            case 'tone':
+                console.log("toggle tone", message.value)
+                detecttone = message.value;
+                if (!tone) yourwords = "";
+                break;
         }
     });
 
@@ -95,11 +101,55 @@ function startListening() {
         if (listening) {
             logSpeak("you", msg);
             yourwords = yourwords + " " + msg;
+            if (detecttone) analyzeTone()
             // send to the conversation service
             converse(msg);
         }
     });
+}
 
+function logTone(max, tones) {
+    var message = {
+        type: "tone",
+        sender: "TJBot",
+        title: "Main emotion detected: " + max.tone_id + " (" + max.score.toFixed(2) * 100 + "%)",
+        transcript: yourwords,
+        maxtone: max,
+        description: "",
+        tones: tones,
+        timestamp: Date.now(),
+        tags: [{
+            title: "tone analyzer",
+            url: "#"
+        }, {
+            title: "speech to text",
+            url: "#"
+        }]
+    }
+    console.log(message)
+    server.sendEvent(message)
+}
+
+function logTone(max, tones) {
+    var message = {
+        type: "tone",
+        sender: "TJBot",
+        title: "Analyzing your sentiment",
+        transcript: "message",
+        description: "",
+        tones: tones,
+        timestamp: Date.now(),
+        tags: [{
+            title: "tone analyzer",
+            url: "#"
+        }, {
+            title: "speech to text",
+            url: "#"
+        }],
+        confidence: 1
+    }
+    console.log(message)
+    server.sendEvent(message)
 }
 
 function converse(msg) {

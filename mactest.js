@@ -35,6 +35,9 @@ server.wss.on('connection', function connection(ws) {
             case 'led':
                 //tj.shine(message.color)
                 //
+            case 'tone':
+                fetchTones();
+                break;
             case 'listening':
 
                 listening = message.value;
@@ -46,6 +49,73 @@ server.wss.on('connection', function connection(ws) {
     });
 
 });
+
+
+
+var Watson = require('watson-developer-cloud');
+var toneAnalyzer = Watson.tone_analyzer({
+    username: config.credentials.tone_analyzer['username'],
+    password: config.credentials.tone_analyzer['password'],
+    version: 'v3',
+    version_date: '2016-05-19'
+});
+
+fetchTones();
+
+function fetchTones() {
+
+
+
+    var params = {
+        text: "I am happy happy happy bear"
+    };
+
+    toneAnalyzer.tone(params, function(err, tone) {
+        if (err) {
+            console.error("The tone_analyzer service returned an error. This may indicate you have exceeded your usage quota for the service.");
+            console.error("Raw error:");
+            console.error(JSON.stringify(err));
+        } else {
+            var tones;
+            tone.document_tone.tone_categories.forEach(function(category) {
+                if (category.category_id == "emotion_tone") {
+                    // find the emotion with the highest confidence
+                    var max = category.tones.reduce(function(a, b) {
+                        return (a.score > b.score) ? a : b;
+                    });
+                    tones = category.tones;
+                    console.log(category.tones);
+                    logTone(max, tones)
+                }
+            });
+
+        }
+    });
+
+}
+
+
+function logTone(max, tones) {
+    var message = {
+        type: "tone",
+        sender: "TJBot",
+        title: "Main emotion in text below is " + max.tone_id + " (" + max.score.toFixed(2) * 100 + "%)",
+        transcript: "message",
+        maxtone: max,
+        description: "",
+        tones: tones,
+        timestamp: Date.now(),
+        tags: [{
+            title: "tone analyzer",
+            url: "#"
+        }, {
+            title: "speech to text",
+            url: "#"
+        }]
+    }
+    console.log(message)
+    server.sendEvent(message)
+}
 
 function logSpeak(message) {
     sender = Math.random() > 0.5 ? "TJBot" : "You"

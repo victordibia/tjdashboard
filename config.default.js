@@ -50,6 +50,13 @@ exports.credentials.text_to_speech = {
     username: ''
 };
 
+// Watson Tone Analyzer
+// https://www.ibm.com/watson/developercloud/text-to-speech.html
+exports.credentials.tone_analyzer = {
+    password: '',
+    username: ''
+};
+
 // Watson Vision Recognition
 // https://www.ibm.com/watson/developercloud/text-to-speech.html
 exports.credentials.visual_recognition = {

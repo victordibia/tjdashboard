@@ -243,6 +243,10 @@
     border-radius: 4px;
 }
 
+.barlabel {
+    padding: 0px 0px 0px 10px;
+}
+
 .intent {
     padding: 5px 20px 5px 20px;
     font-weight: bold;
@@ -251,4 +255,12 @@
     display: block;
     background-color: #fff;
     border-radius: 4px;
+}
+
+.bartop {
+    margin: 8px 0px 0px 0px;
+}
+
+.mybar {
+    margin: 0px 10px 10px 0px;
 }

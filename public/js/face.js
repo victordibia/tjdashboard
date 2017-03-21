@@ -96,27 +96,56 @@
                         "<div class='col-md-2 pad0'>   <img class='chatimg' src='/img/you.jpg' alt='message user image'>  <span class='sendertitle bg-green'> " + data.sender + " </span>  </div>" +
                         "</div>  " + "<hr />";
                 }
+            } else if (data.type == "tone") {
+                transcript = "<div class='direct-chat-text chattext'> " + data.transcript + "</div>";
+                console.log(data.tones);
+                var tonebars = ""
+                data.tones.forEach(function(tone) {
+                    var score = tone.score.toFixed(2) * 100;
+                    var bgcolor = ""
+                    switch (tone.tone_id) {
+                        case 'anger':
+                            bgcolor = "bg-red"
+                            break;
+                        case 'disgust':
+                            bgcolor = "bg-purple"
+                            break;
+                        case 'fear':
+                            bgcolor = "bg-green"
+                            break;
+                        case 'joy':
+                            bgcolor = "bg-yellow"
+                            break;
+                        case 'sadness':
+                            bgcolor = "bg-blue"
+                            break;
+                    }
+                    tonebars = tonebars + "<div class='mybar row'> " +
+                        "<div class='col-md-2 barlabel '> " + tone.tone_id + " ( " + score + " %) </div> " +
+                        "<div class='progress progress-xs active bartop'> " +
+                        "    <div class='progress-bar " + bgcolor + " progress-bar-striped' role='progressbar' aria-valuenow=' " + score.toFixed(0) + " ' aria-valuemin='0' aria-valuemax='100' style='width: " + score.toFixed(0) + "%'></div>" +
+                        "</div>" +
+                        "</div>";
+                })
+
+
+                var imgcol = "<div class='col-md-2 pad0'>   <img class='chatimg' src='/img/tj.jpg' alt='message user image'> <span class='sendertitle bg-green'> " + data.sender + " </span> </div>";
+                var valcol = "<div class='col-md-10'> " +
+                    "<div class='row'>" +
+                    "<span class='bg-green updatetype'> <i class='fa  fa-smile-o'></i>  " + data.type + " </span> " +
+                    "<span class='bg-green updatetype'> " + data.title + "</span> " +
+                    "<span class='direct-chat-timestamp pull-right'> " + timestamp + "</span> " +
+                    transcript +
+                    tonebars + "<div class='tagbox' >" + tags + "</div>";
+
+                html = "<div class='margin10 row  '>" +
+                    imgcol +
+                    valcol +
+                    "</div>" +
+                    "</div>  " +
+                    "</div>  " + "<hr />";
             }
-
-            console.log(html)
-
-
-
-
-            // var html = "<li>" +
-            //     "<i class = '" + liclass + "'></i> " +
-            //     "<div class='timeline-item'>" +
-            //     "<span class='time'><i class='fa fa-clock-o  '></i> &nbsp" + timestamp + "</span>" +
-            //     "<h3 class='timelinetitle'><a href='#'>" + data.type + "</a> " + data.title + "</h3>" +
-            //     "<div class='timeline-body'>" + image +
-            //     "<span class='transcript'>" + transcript + "</span>" +
-            //     "</div>" +
-            //     "<div class=''>" + tags + "</div>" +
-            //     "</div>" +
-            //     "</div> </li>";
-
             $(html).insertAfter(".firstitem").hide().show("slow");
-
         };
 
         ws.onclose = function() {
@@ -242,6 +271,24 @@
         console.log(facedetectstatus)
     })
 
+    var tonestatus = false;
+    $("#tonebutton").click(function() {
+        if (tonestatus) {
+            $("#toneicon").attr("class", "fa  fa-toggle-off fa-2x");
+            tonestatus = false;
+            $("#tonetext").text("OFF")
+        } else {
+            $("#toneicon").attr("class", "fa  fa-toggle-on fa-2x")
+            tonestatus = true;
+            $("#tonetext").text("ON")
+        }
+        var message = {}
+        message.event = "tone"
+        message.value = tonestatus;
+
+        ws.send(JSON.stringify(message));
+        console.log(tonestatus)
+    })
     $("#speaksendbutton").click(function() {
         sendSpeakMessage();
     })
