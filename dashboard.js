@@ -410,8 +410,9 @@ function detectFaces(imgsource, curImage) {
             if (faces.length > 0) {
                 var face = faces[0];
                 img = im.roi(face.x, face.y, face.width, face.height);
-                img.save(faceurl);
                 faceurl = "/img/snaps/" + "facecut" + curImage;
+                img.save("public" + faceurl);
+
             }
             endtime = Date.now()
             console.log("faces found: ", faces.length, "timetaken: ", (endtime - starttime) / 1000)
