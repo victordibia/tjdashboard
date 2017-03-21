@@ -100,31 +100,16 @@
             } else if (data.type == "tone") {
                 transcript = "<div class='direct-chat-text chattext'> " + data.transcript + "</div>";
                 console.log(data.tones);
-                var tonebars = ""
+                var tonebars = "";
+
                 data.tones.forEach(function(tone) {
                     var score = tone.score.toFixed(2) * 100;
-                    var bgcolor = ""
-                    switch (tone.tone_id) {
-                        case 'anger':
-                            bgcolor = "bg-red"
-                            break;
-                        case 'disgust':
-                            bgcolor = "bg-purple"
-                            break;
-                        case 'fear':
-                            bgcolor = "bg-green"
-                            break;
-                        case 'joy':
-                            bgcolor = "bg-yellow"
-                            break;
-                        case 'sadness':
-                            bgcolor = "bg-blue"
-                            break;
-                    }
+
+
                     tonebars = tonebars + "<div class='mybar row'> " +
                         "<div class='col-md-2 barlabel '> " + tone.tone_id + " ( " + score + " %) </div> " +
                         "<div class='progress progress-xs active bartop'> " +
-                        "    <div class='progress-bar " + bgcolor + " progress-bar-striped' role='progressbar' aria-valuenow=' " + score.toFixed(0) + " ' aria-valuemin='0' aria-valuemax='100' style='width: " + score.toFixed(0) + "%'></div>" +
+                        "    <div class='progress-bar " + getColor(tone.tone_id) + " progress-bar-striped' role='progressbar' aria-valuenow=' " + score.toFixed(0) + " ' aria-valuemin='0' aria-valuemax='100' style='width: " + score.toFixed(0) + "%'></div>" +
                         "</div>" +
                         "</div>";
                 })
@@ -134,7 +119,7 @@
                 var valcol = "<div class='col-md-10'> " +
                     "<div class='row'>" +
                     "<span class='bg-green updatetype'> <i class='fa  fa-smile-o'></i>  " + data.type + " </span> " +
-                    "<span class='bg-green updatetype'> " + data.title + "</span> " +
+                    "<span class='" + getColor(data.maxtone.tone_id) + " updatetype'> " + data.title + "</span> " +
                     "<span class='direct-chat-timestamp pull-right'> " + timestamp + "</span> " +
                     transcript +
                     tonebars + "<div class='tagbox' >" + tags + "</div>";
@@ -341,6 +326,29 @@
         $('#updatemodal').modal({
             show: true
         })
+    }
+
+    function getColor(tone) {
+        var bgcolor = ""
+        switch (tone) {
+            case 'anger':
+                bgcolor = "bg-red"
+                break;
+            case 'disgust':
+                bgcolor = "bg-purple"
+                break;
+            case 'fear':
+                bgcolor = "bg-green"
+                break;
+            case 'joy':
+                bgcolor = "bg-yellow"
+                break;
+            case 'sadness':
+                bgcolor = "bg-blue"
+                break;
+        }
+
+        return bgcolor;
     }
 
 

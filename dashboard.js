@@ -101,13 +101,16 @@ function startListening() {
     tj.listen(function(msg) {
         if (listening) {
             logSpeak(currentusername, msg);
-            yourwords = yourwords + " " + msg;
-            if (detecttone) analyzeTone();
-            checkName(msg);
+            checkName(msg); // check if the person is trying to report their name
             // send to the conversation service
             converse(msg);
         }
     });
+}
+
+function addToWords(msg) {
+    yourwords = yourwords + " " + msg;
+    if (detecttone) analyzeTone();
 }
 
 function checkName(msg) {

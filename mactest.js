@@ -60,16 +60,12 @@ var toneAnalyzer = Watson.tone_analyzer({
     version_date: '2016-05-19'
 });
 
-fetchTones();
+//fetchTones();
 
 function fetchTones() {
-
-
-
     var params = {
         text: "I am happy happy happy bear"
     };
-
     toneAnalyzer.tone(params, function(err, tone) {
         if (err) {
             console.error("The tone_analyzer service returned an error. This may indicate you have exceeded your usage quota for the service.");
