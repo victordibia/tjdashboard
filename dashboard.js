@@ -101,6 +101,7 @@ function startListening() {
     tj.listen(function(msg) {
         if (listening) {
             logSpeak(currentusername, msg);
+            addToWords(msg);
             checkName(msg); // check if the person is trying to report their name
             // send to the conversation service
             converse(msg);
