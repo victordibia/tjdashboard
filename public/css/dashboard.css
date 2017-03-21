@@ -265,10 +265,11 @@
     margin: 0px 10px 10px 0px;
 }
 
-.buttonrow {
+
+/*.buttonrow {
     width: auto;
     max-height: 80px;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
-}
+}*/
