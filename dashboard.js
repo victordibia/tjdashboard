@@ -142,7 +142,7 @@ function logTone(max, tones) {
     var message = {
         type: "tone",
         sender: "TJBot",
-        title: "Main emotion detected: " + max.tone_id + " (" + max.score.toFixed(2) * 100 + "%)",
+        title: "Main emotion detected: " + max.tone_id + " (" + max.score.toFixed(0) * 100 + "%)",
         transcript: yourwords,
         maxtone: max,
         description: "",
