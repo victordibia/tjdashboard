@@ -40,6 +40,8 @@
             var html = "";
             var tags = "";
             var intent = "";
+            var faceurl = "/img/you.jpg"
+            if (data.faceurl) faceurl = data.faceurl
             data.tags.forEach(function(tag) {
                 tags = tags + "<a class='tagframe bg-green btn' href= '" + tag.url + "'> " + tag.title + "</a>";
             })

@@ -7,7 +7,8 @@ var request = require("request");
 var fs = require('fs');
 var fileDir = process.cwd() + "/public/img/snaps"
 var curImage = "";
-
+var faceurl = null;
+var yourwords = "";
 
 // obtain our credentials from config.js
 var credentials = constants.credentials;
@@ -93,6 +94,7 @@ function startListening() {
     tj.listen(function(msg) {
         if (listening) {
             logSpeak("you", msg);
+            yourwords = yourwords + " " + msg;
             // send to the conversation service
             converse(msg);
         }
@@ -311,6 +313,7 @@ function logVision(sender, response) {
         }],
         confidence: 1
     }
+    //if (response.faceurl) message.faceurl = response.faceurl,
     //console.log(message)
     server.sendEvent(message)
 }
@@ -323,6 +326,7 @@ function logSpeak(sender, transcript, intent) {
         title: sender == "you" ? "What TJBot thinks you said" : "What TJBot says",
         transcript: transcript,
         intent: intent,
+        faceurl: faceurl,
         description: "",
         timestamp: Date.now(),
         tags: [{
@@ -352,6 +356,7 @@ function detectFaces(imgsource, curImage) {
     var COLOR = [0, 255, 255]; // default red
     var thickness = 1; // default 1
 
+
     cv.readImage(imgsource, function(err, im) {
         if (err) throw err;
         if (im.width() < 1 || im.height() < 1) throw new Error('Image has no size');
@@ -361,11 +366,19 @@ function detectFaces(imgsource, curImage) {
                 var face = faces[i];
                 im.rectangle([face.x, face.y], [face.width, face.height], COLOR, 2);
             }
+            // get the first face
+            if (faces.length > 0) {
+                var face = faces[0];
+                img = im.roi(face.x, face.y, face.width, face.height);
+                img.save(faceurl);
+                faceurl = "/img/snaps/" + "facecut" + curImage;
+            }
             endtime = Date.now()
             console.log("faces found: ", faces.length, "timetaken: ", (endtime - starttime) / 1000)
             im.save(imgsource);
             var response = {};
             response.imageurl = curImage;
+            response.faceurl = faceurl;
             response.transcript = faces.length + " faces detected.";
             logVision("tjbot", response)
             console.log('Image saved to ', imgsource);
