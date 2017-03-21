@@ -75,6 +75,7 @@ server.wss.on('connection', function connection(ws) {
             case 'speak':
                 console.log("speaking ", message.value);
                 logSpeak(currentusername, message.value);
+                addToWords(message.value)
                 converse(message.value);
                 break;
             case 'listening':
@@ -112,6 +113,23 @@ function startListening() {
 function addToWords(msg) {
     yourwords = yourwords + " " + msg;
     if (detecttone) analyzeTone();
+}
+
+function analyzeTone() {
+    tj.analyzeTone(yourwords).then(function(tone) {
+        var tones;
+        tone.document_tone.tone_categories.forEach(function(category) {
+            if (category.category_id == "emotion_tone") {
+                // find the emotion with the highest confidence
+                var max = category.tones.reduce(function(a, b) {
+                    return (a.score > b.score) ? a : b;
+                });
+                tones = category.tones;
+                console.log(category.tones);
+                logTone(max, tones)
+            }
+        });
+    });
 }
 
 function checkName(msg) {
