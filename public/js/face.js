@@ -41,7 +41,8 @@
             var tags = "";
             var intent = "";
             var faceurl = "/img/you.jpg"
-            if (data.faceurl) faceurl = data.faceurl
+            console.log("face url ...", data.faceurl)
+            if (data.faceurl != null) faceurl = data.faceurl
             data.tags.forEach(function(tag) {
                 tags = tags + "<a class='tagframe bg-green btn' href= '" + tag.url + "'> " + tag.title + "</a>";
             })
@@ -93,7 +94,7 @@
                         intent +
                         "<div class='tagbox' >" + tags + "</div>" +
                         "</div>" + "</div>" +
-                        "<div class='col-md-2 pad0'>   <img class='chatimg' src='/img/you.jpg' alt='message user image'>  <span class='sendertitle bg-green'> " + data.sender + " </span>  </div>" +
+                        "<div class='col-md-2 pad0'>   <img class='chatimg' src='" + faceurl + "' alt='message user image'>  <span class='sendertitle bg-green'> " + data.sender + " </span>  </div>" +
                         "</div>  " + "<hr />";
                 }
             } else if (data.type == "tone") {

@@ -29,7 +29,7 @@ server.wss.on('connection', function connection(ws) {
 
             case 'see':
                 //see()
-                logVision();
+                getFaces();
                 break;
 
             case 'led':
@@ -126,6 +126,7 @@ function logSpeak(message) {
         title: sender == "you" ? "What TJBot thinks you said:" : "WHat TJBot says",
         transcript: message,
         description: "",
+        faceurl: faceurl,
         intent: Math.random() > 0.5 ? null : "Wave",
         timestamp: Date.now(),
         tags: [{
@@ -147,7 +148,7 @@ function logSpeak(message) {
     server.sendEvent(message)
 }
 
-function logVision() {
+function logVision(response) {
     sender = "Vision"
     message = "The objects I see in the image are "
     var message = {
@@ -156,7 +157,7 @@ function logVision() {
         sender: sender,
         transcript: message,
         description: "",
-        imageurl: "img/screen.jpg",
+        imageurl: response.imageurl,
         timestamp: Date.now(),
         tags: [{
             title: "visual recognition",
@@ -232,11 +233,12 @@ function getWeather(long, lat) {
 
 var cv = require('opencv');
 getFaces();
+var faceurl = null;
 
 function getFaces() {
     var starttime = Date.now();
     var endtime;
-    var COLOR = [0, 255, 255]; // default red
+    var COLOR = [0, 255, 0]; // default red
     var thickness = 1; // default 1
 
     var imgsource = "public/img/faceg.jpg";
@@ -256,13 +258,19 @@ function getFaces() {
             }
             if (faces.length > 0) {
                 var face = faces[0];
-                img = im.roi(face.x, face.y, face.width, face.height);
+                img = im.roi(face.x, face.y, face.width - 2, face.height - 2);
                 img.save("public/img/facecut.jpg")
+                faceurl = "/img/facecut.jpg";
             }
             endtime = Date.now()
             console.log("faces found: ", faces.length, "timetaken: ", (endtime - starttime) / 1000)
 
             im.save(imgdestination);
+            var response = {};
+            response.imageurl = "/img/faced.jpg";
+            response.faceurl = "/img/facecut.jpg";
+            response.transcript = faces.length + " faces detected.";
+            logVision(response)
             console.log('Image saved to ', imgdestination);
         });
     });
