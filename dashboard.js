@@ -135,6 +135,9 @@ function analyzeTone() {
 function checkName(msg) {
     if (msg.indexOf("my name is") > -1) {
         currentusername = msg.replace("my name is ", "")
+        var speakmessage = "nice to meet you " + currentusername;
+        tj.speak(speakmessage);
+        logSpeak("tjbot", speakmessage)
     }
 }
 
