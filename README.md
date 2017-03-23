@@ -134,6 +134,4 @@ Sample utterances are
 You can add more utterances by creating additional intents on your watson conversation dialog.
 
 For the dance command, your robot processes wav files in the sounds folder. Please ensure you have a .wav file there and set that as your sound file.
-
-8feba376-58e2-4036-a781-fed5beb2bbba
-dQifESxquviU
+ 
