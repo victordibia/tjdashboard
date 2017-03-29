@@ -21,16 +21,16 @@ var WORKSPACEID = constants.config.conversationWorkspaceId;
 var hardware = ['microphone', 'speaker', 'led', 'servo'];
 
 // Set up configuration paramters
-var config = {
-    verboseLogging: true, //enable console debugging
-    servoPin: 7, // set servo pin
-    cameraParams: {
-        height: 720,
-        width: 960,
-        vflip: false,
-        hflip: false
-    } // setup my camera capture parameters
-};
+// var config = {
+//     verboseLogging: true, //enable console debugging
+//     servoPin: 7, // set servo pin
+//     cameraParams: {
+//         height: 720,
+//         width: 960,
+//         vflip: false,
+//         hflip: false
+//     } // setup my camera capture parameters
+// };
 
 var listening = true;
 var detectface = false;
