@@ -38,7 +38,7 @@ var detecttone = false;
 var currentusername = "you";
 
 // obtain our configs from config.js and merge with custom configs
-config = Object.assign(constants.config, config);
+config = constants.config; // Object.assign(constants.config, config);
 
 // instantiate our TJBot!
 var tj = new tjbot(hardware, config, credentials);
