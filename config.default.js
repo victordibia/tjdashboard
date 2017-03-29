@@ -5,7 +5,7 @@ exports.config = {
     voice: {
         "gender": "male",
         "language": "en-US",
-        "timeout": 60 // disconnect stt after 60 seconds. Use -1 for indefinite transciption (expensive)
+        "timeout": 90 // disconnect stt after 60 seconds. Use -1 for indefinite transciption (expensive)
     },
     conversationWorkspaceId: "", // replace with the workspace identifier of your conversation
     microphoneDeviceId: "plughw:0,0", // Card and Device found in command arecord -l of your hardware. In general 0,0 or 1,0 or 0,1
