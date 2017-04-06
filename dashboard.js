@@ -1,6 +1,6 @@
 var server = require("./server");
 var tjbot = require('tjbot');
-var constants = require('./config');
+var config = require('./config');
 var AudioContext = require('web-audio-api').AudioContext
 context = new AudioContext
 var request = require("request");
@@ -11,34 +11,26 @@ var faceurl = null;
 var yourwords = "";
 
 // obtain our credentials from config.js
-var credentials = constants.credentials;
+var credentials = config.credentials;
 
 // obtain user-specific config
-var VOICE = constants.config.voice;
-var WORKSPACEID = constants.config.conversationWorkspaceId;
+//var VOICE = constants.config.voice;
+var WORKSPACEID = config.conversationWorkspaceId;
 
 // these are the hardware capabilities that TJ needs for this recipe
 var hardware = ['microphone', 'speaker', 'led', 'servo'];
 
-// Set up configuration paramters
-// var config = {
-//     verboseLogging: true, //enable console debugging
-//     servoPin: 7, // set servo pin
-//     cameraParams: {
-//         height: 720,
-//         width: 960,
-//         vflip: false,
-//         hflip: false
-//     } // setup my camera capture parameters
-// };
+// set up configuration paramters
+var config = {
+    log: {
+        level: 'verbose'
+    }
+};
 
 var listening = true;
 var detectface = false;
 var detecttone = false;
 var currentusername = "you";
-
-// obtain our configs from config.js and merge with custom configs
-config = constants.config; // Object.assign(constants.config, config);
 
 // instantiate our TJBot!
 var tj = new tjbot(hardware, config, credentials);
