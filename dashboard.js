@@ -18,7 +18,7 @@ var credentials = config.credentials;
 var WORKSPACEID = config.conversationWorkspaceId;
 
 // these are the hardware capabilities that TJ needs for this recipe
-var hardware = ['microphone', 'speaker', 'led', 'servo'];
+var hardware = ['microphone', 'speaker', 'led', 'servo', "camera"];
 
 // set up configuration paramters
 var config = {
