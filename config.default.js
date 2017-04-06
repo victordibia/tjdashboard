@@ -1,30 +1,7 @@
 exports.webServerNumber = 8078;
 
 // User-specific CONFIGURATION
-exports.config = {
-    voice: {
-        "gender": "male",
-        "language": "en-US",
-        "timeout": 90 // disconnect stt after 60 seconds. Use -1 for indefinite transciption (expensive)
-    },
-    conversationWorkspaceId: "", // replace with the workspace identifier of your conversation
-    microphoneDeviceId: "plughw:0,0", // Card and Device found in command arecord -l of your hardware. In general 0,0 or 1,0 or 0,1
-    // If bot is closing without wait for listening you maybe have to change that parameter
-    attentionWord: 'TJ', // Attention word that triggers bot response
-    verboseLogging: false, // To see log messages
-    ledPin: 8,
-    servoPin: 7,
-    ttsReconnect: true,
-    // Confidence threshold for tags from visual recognition service. Tags below this will be ignored.
-    visionConfidenceThreshold: 0.5,
-    visionTextConfidenceThreshold: 0.1,
-    cameraParams: {
-        height: 720,
-        width: 960,
-        vflip: false,
-        hflip: false
-    }
-}
+exports.conversationWorkspaceId = '';
 
 // Create the credentials object for export
 exports.credentials = {};

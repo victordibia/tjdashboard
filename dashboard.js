@@ -234,7 +234,7 @@ function seeText(prompt) {
     tj.speak(prompt).then(function() {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
-        tj.captureImage(filePath).then(function(filePath) {
+        tj._captureImage(filePath).then(function(filePath) {
             var response = {};
             response.imageurl = curImage;
             response.transcript = "Scanning for text."
@@ -258,7 +258,7 @@ function see(conversation_response) {
     tj.speak(conversation_response).then(function() {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
-        tj.captureImage(filePath).then(function(filePath) {
+        tj._captureImage(filePath).then(function(filePath) {
             console.log(" ==== face ===", detectface);
             if (detectface) {
                 detectFaces(filePath, curImage);
