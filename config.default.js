@@ -60,7 +60,7 @@ exports.credentials.tone_analyzer = {
 // Watson Vision Recognition
 // https://www.ibm.com/watson/developercloud/text-to-speech.html
 exports.credentials.visual_recognition = {
-    key: '',
+    api_key: '',
     version: '2016-05-19'
 }
 
