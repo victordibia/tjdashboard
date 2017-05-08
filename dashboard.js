@@ -180,7 +180,7 @@ function converse(msg) {
                     } else if (matchedIntent == "off_topic") {
                         // do nothing
                     } else if (matchedIntent == "weather") {
-                        getCordinates("Las vegas", "city", "US", "NV");
+                        getCordinates("denver", "city", "US", "CO");
                     } else {
                         tj.speak(conversation_response).then(function() {
                             tj.shine("white");
@@ -258,7 +258,7 @@ function see(conversation_response) {
     tj.speak(conversation_response).then(function() {
         curImage = Date.now() + ".jpg";
         filePath = fileDir + "/" + curImage;
-        tj._captureImage(filePath).then(function(filePath) {
+        tj._captureImage(filePath).then(function(buff) {
             console.log(" ==== face ===", detectface);
             if (detectface) {
                 detectFaces(filePath, curImage);
@@ -477,10 +477,10 @@ function getWeather(long, lat) {
             var location = ob.obs_name;
             var temp = ob.temp;
             var desc = ob.wx_phrase;
-            var feelslike = ob.feels_like;
+            var feelslike = (ob.feels_like == ob.temp) ? "" : " that feels more like " + ob.feels_like;
             var windspeed = ob.wspd + " km/h";
             var uv = ob.uv_desc;
-            var alldesc = "The weather in " + location + " today is " + desc + " with a temperature of " + temp + " that feels more like " +
+            var alldesc = "The weather in " + location + " today is " + desc + " with a temperature of " + temp +
                 feelslike + ". Wind speed is " + windspeed + " and UV is " + uv;
             console.log(alldesc);
             logSpeak("TJBot", alldesc);
