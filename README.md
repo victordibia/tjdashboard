@@ -42,8 +42,8 @@ Note: In the code, you can always change the pins used.
 ## Build
 Get the sample code (download or clone) and go to the application folder.
 
-    git clone git@github.com:victordibia/tjwave.git
-    cd tjwave
+    git clone https://github.com/victordibia/tjdashboard
+    cd tjdashboard
 
 Update your Raspberry Pi. Please see the guide [here to setup network and also update your nodejs] (http://www.instructables.com/id/Make-Your-Robot-Respond-to-Emotions-Using-Watson/step2/Set-up-your-Pi/) installation
     sudo apt-get update
