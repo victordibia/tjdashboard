@@ -99,7 +99,8 @@ Create config.js
     nano config.js
 
 Note: do not add your credentials to the config.default.js file.
-Note: Please also edit the config.js to add details on your location (e.g. country, city and state).
+
+Note: Please also edit the config.js to add details on your weather location (e.g. country, city and state). This location is used to respond to the question `what is the weather`.
 
 ## Test Your Servo
 
@@ -116,7 +117,7 @@ If your robot arm does not respond, kindly confirm you have connected it correct
 
 
 
-##Running
+## Running
 
 Start the application. (Note: you need sudo access)
 
