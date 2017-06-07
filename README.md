@@ -72,7 +72,7 @@ You can run simple machine vision algorithms locally on your raspberry pi. This 
 The app uses Watson conversation to understand intent behind text.
 
   - You will need to set up your watson conversation flow and set up a workspace. More on that [here](http://www.instructables.com/id/Build-a-Talking-Robot-With-Watson-and-Raspberry-Pi/#step6) .
-  - You import sample conversation flow in the folder (workspace.json) to get you started. This creates intents for actions like "hello" , "see" , "wave" , "introduce" etc
+  - You import sample conversation flow in the folder (workspace.json) to get you started. This creates intents for actions like "hello" , "see" , "wave" , "introduce", "weather" etc
   - Finally, this sample uses both audio and LED. These two hardware devices [are known to conflict](https://github.com/jgarff/rpi_ws281x#limitations) - a workaround is to disable onboard audio and use USB audio on your Pi.
 
 
@@ -99,6 +99,7 @@ Create config.js
     nano config.js
 
 Note: do not add your credentials to the config.default.js file.
+Note: Please also edit the config.js to add details on your location (e.g. country, city and state).
 
 ## Test Your Servo
 
@@ -124,14 +125,14 @@ Start the application. (Note: you need sudo access)
 Then you should be able to speak to the microphone.
 Sample utterances are
 
-    can you raise your arm ?
-    can you introduce yourself ?
-    What is your name ?
-    can you dance ?
-    what do you see ?
+    hi there?   What is your name ? [intent: do]
+    can you raise your arm ? can you wave your arm [intent: wave]
+    can you introduce yourself ? what can you do for me [intent: introduce]  
+    can you play some music and dance ?   What is your name ? [intent: dance]
+    what do you see ? [intent: see]
+    what is the weather ? will it rain today? should take an umbrella for the rain? [intent: weather]
     Can you hear me ?
 
 You can add more utterances by creating additional intents on your watson conversation dialog.
 
 For the dance command, your robot processes wav files in the sounds folder. Please ensure you have a .wav file there and set that as your sound file.
- 

@@ -188,7 +188,8 @@ function converse(msg) {
                     } else if (matchedIntent == "off_topic") {
                         // do nothing
                     } else if (matchedIntent == "weather") {
-                        getCordinates("denver", "city", "US", "CO");
+                        //getCordinates("denver", "city", "US", "CO");
+                        getCordinates(constants.weather.city, "city", constants.weather.country, constants.weather.state);
                     } else {
                         tj.speak(conversation_response).then(function() {
                             tj.shine("white");
