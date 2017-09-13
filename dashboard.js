@@ -281,7 +281,7 @@ function see(conversation_response) {
             description = description + ", " + each.class
           }
         })
-        response.description = (description == "" || description == null) ? "No objects recognized in the image." : "The words I see are : " + description;
+        response.description = (description == "" || description == null) ? "No objects recognized in the image." : "The objects I see are : " + description;
         logSpeak("TJBot", response.description);
         tj.speak(response.description).then(function() {
           tj.shine("white");
@@ -290,6 +290,28 @@ function see(conversation_response) {
 
     })
 
+  });
+}
+
+
+function detectFaces(filePath, curImage) {
+  const params = {
+    images_file: fs.createReadStream(filePath)
+  };
+
+  tj._visualRecognition.detectFaces(params, function(err, res) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(JSON.stringify(res, null, 2));
+
+      var response = {
+        facelocations: res,
+        imageurl: "img/faceg.jpg",
+        response.transcript = res.images[0].faces.length + " faces detected.";
+        logVision("tjbot", response);
+      }
+    }
   });
 }
 

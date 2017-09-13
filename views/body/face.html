@@ -1,129 +1,129 @@
 <div class="content-wrapper">
-    <div class="container">
-        <!-- Content Header (Page header) -->
+  <div class="container">
+    <!-- Content Header (Page header) -->
 
 
-        <!-- Main content -->
-        <section class="content" id="pagecontent">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box  box-success ">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Controls: Use the buttons below to control your TJBot.</h3>
-                            <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                            </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="buttonrow">
+    <!-- Main content -->
+    <section class="content" id="pagecontent">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box  box-success ">
+            <div class="box-header with-border">
+              <h3 class="box-title">Controls: Use the buttons below to control your TJBot.</h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="buttonrow">
 
 
-                                <button id="seebutton" class="btn btn-success btn-lg selectbutton">
+                <button id="seebutton" class="btn btn-success btn-lg selectbutton">
                               <i class="fa fa-camera-retro fa-2x"></i>
                               <span class="buttonsubtext"> See </span>
                               </button>
 
-                                <button id="seetextbutton" class="btn btn-success btn-lg selectbutton">
+                <button id="seetextbutton" class="btn btn-success btn-lg selectbutton">
                             <i class="fa fa-file-text fa-2x"></i>
                             <span class="buttonsubtext"> Text </span>
                             </button>
 
-                                <button id="dancebutton" class="btn  btn-success btn-lg selectbutton">
+                <button id="dancebutton" class="btn  btn-success btn-lg selectbutton">
                             <i class="fa  fa-music fa-2x"></i>
                             <span class="buttonsubtext"> Dance </span>
                           </button>
 
-                                <button id="wavebutton" class="btn  btn-success btn-lg selectbutton">
+                <button id="wavebutton" class="btn  btn-success btn-lg selectbutton">
                                 <i class="fa  fa-hand-stop-o fa-2x"></i>
                                 <span class="buttonsubtext"> Wave </span>
                                </button>
 
-                                <button class="btn btn-success btn-lg selectbutton" id="lightbutton">
+                <button class="btn btn-success btn-lg selectbutton" id="lightbutton">
                                <i class="fa  fa-lightbulb-o fa-2x"></i>
                                <span class="buttonsubtext"> LED </span>
                              </button>
 
-                                <button class="btn btn-success btn-lg selectbutton" id="listeningbutton">
+                <button class="btn btn-success btn-lg selectbutton" id="listeningbutton">
                             <i class="fa  fa-toggle-off fa-2x" id="listeningicon"></i>
                             <span class="buttonsubtext"> Listening: <span id="listeningtext" class="bold"> OFF </span></span>
                           </button>
 
-                                <button class="btn btn-success btn-lg selectbutton" id="facedetectbutton">
+                <button class="btn btn-success btn-lg selectbutton" id="facedetectbutton">
                       <i class="fa  fa-toggle-off fa-2x" id="facedetecticon"></i>
                       <span class="buttonsubtext"> Faces: <span id="facedetecttext" class="bold"> OFF </span></span>
                     </button>
-                                <button class="btn btn-success btn-lg selectbutton" id="tonebutton">
+                <button class="btn btn-success btn-lg selectbutton" id="tonebutton">
           <i class="fa  fa-toggle-off fa-2x" id="toneicon"></i>
           <span class="buttonsubtext"> Sentiment: <span id="tonetext" class="bold"> OFF </span></span>
         </button>
 
-                            </div>
-                            <div class=" ">
-                                <br />
+              </div>
+              <div class=" ">
+                <br />
 
-                                <div class="input-group">
-                                    <input id="speakinputmessage" type="text" name="message" value="send message" placeholder="Type Message ..." class="form-control">
-                                    <span class="input-group-btn">
+                <div class="input-group">
+                  <input id="speakinputmessage" type="text" name="message" value="send message" placeholder="Type Message ..." class="form-control">
+                  <span class="input-group-btn">
                          <button id="speaksendbutton" type="button" class="btn btn-success btn-flat">Send</button>
                        </span>
-                                </div>
-
-                            </div>
-
-
-
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
                 </div>
-            </div>
-            <!-- /.col -->
 
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- DIRECT CHAT -->
-                    <div class="box box-success">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Interaction Visualization </h3>
-                            <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="firstitem">
-                                <div class="timeline-item">
-                                    <h3 class="timeline-header"><a href="#">Connecting ...</a> ...</h3>
-                                    <div class="timeline-body"> Attempting to reconnect ...
-                                    </div>
-                                </div>
-                            </div>
+              </div>
 
 
-
-                        </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-
-                        </div>
-                        <!-- /.box-footer-->
-                        <div class="disableoverlay overlay">
-                            <i class="fa fa-refresh fa-spin"></i>
-                        </div>
-                    </div>
-                    <!--/.direct-chat -->
-                </div>
-                <!-- /.col -->
 
             </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+      <!-- /.col -->
 
-            <!-- /.row -->
-        </section>
-    </div>
+      <div class="row">
+        <div class="col-md-12">
+          <!-- DIRECT CHAT -->
+          <div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title">Interaction Visualization </h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div id="firstitem" class="firstitem">
+                <div class="timeline-item">
+                  <h3 class="timeline-header"><a href="#">Connecting ...</a> ...</h3>
+                  <div class="timeline-body"> Attempting to reconnect ...
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+
+            </div>
+            <!-- /.box-footer-->
+            <div class="disableoverlay overlay">
+              <i class="fa fa-refresh fa-spin"></i>
+            </div>
+          </div>
+          <!--/.direct-chat -->
+        </div>
+        <!-- /.col -->
+
+      </div>
+
+      <!-- /.row -->
+    </section>
+  </div>
 
 </div>
 <!-- /.container -->

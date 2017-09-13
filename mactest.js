@@ -29,7 +29,7 @@ server.wss.on('connection', function connection(ws) {
 
       case 'see':
         //see()
-        getFaces();
+        testFaces()
         break;
 
       case 'led':
@@ -66,7 +66,7 @@ const VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v
 const fs = require('fs');
 
 const visual_recognition = new VisualRecognitionV3({
-  api_key: config.credentials.visual_recognition['key'],
+  api_key: config.credentials.visual_recognition['api_key'],
   version_date: config.credentials.visual_recognition['version']
 });
 
@@ -77,7 +77,78 @@ const params = {
 
 
 // test face fetching on mac
-fetchFaces()
+testFaces()
+//
+function testFaces() {
+  locations = {
+    "images": [{
+      "faces": [{
+          "age": {
+            "max": 54,
+            "min": 45,
+            "score": 0.342022
+          },
+          "face_location": {
+            "height": 195,
+            "left": 752,
+            "top": 88,
+            "width": 105
+          },
+          "gender": {
+            "gender": "FEMALE",
+            "score": 0
+          }
+        },
+        {
+          "age": {
+            "max": 24,
+            "min": 18,
+            "score": 0.502411
+          },
+          "face_location": {
+            "height": 150,
+            "left": 336,
+            "top": 83,
+            "width": 126
+          },
+          "gender": {
+            "gender": "MALE",
+            "score": 0.989013
+          }
+        },
+        {
+          "age": {
+            "max": 24,
+            "min": 18,
+            "score": 0.58114
+          },
+          "face_location": {
+            "height": 179,
+            "left": 40,
+            "top": 57,
+            "width": 142
+          },
+          "gender": {
+            "gender": "FEMALE",
+            "score": 0.993307
+          }
+        }
+      ],
+      "image": "faceg.jpg"
+    }],
+    "images_processed": 1
+  }
+
+  var response = {
+    facelocations: locations,
+    imageurl: "img/faceg.jpg"
+  }
+
+  logVision(response)
+
+
+
+}
 
 function fetchFaces() {
   visual_recognition.detectFaces(params, function(err, res) {
@@ -85,6 +156,16 @@ function fetchFaces() {
       console.log(err);
     } else {
       console.log(JSON.stringify(res, null, 2));
+      var response = {
+        facelocations: res,
+        imageurl: "img/faceg.jpg"
+      }
+
+      setInterval(function() {
+        //logVision(response)
+      }, 8000)
+      logVision(response)
+
     }
   });
 }
@@ -177,6 +258,7 @@ function logVision(response) {
   message = "The objects I see in the image are "
   var message = {
     type: "vision",
+    facelocations: response.facelocations,
     title: "What TJBot Sees",
     sender: sender,
     transcript: message,
