@@ -63,7 +63,7 @@
             color: 'white',
             "font-weight": 'bold',
             background: bgcolor,
-          }).text(each.gender.gender)
+          }).text(each.gender.gender + " [ " + each.gender.score.toFixed(2) * 100 + "% ]")
         );
 
         //ctx.fillRect(eachLoc.left, eachLoc.top, eachLoc.width, eachLoc.height);
