@@ -26,6 +26,28 @@ var hardware = ['microphone', 'speaker', 'led', 'servo', "camera"];
 var config = {
   log: {
     level: 'verbose'
+  },
+  listen: {
+    microphoneDeviceId: "plughw:1,0", // plugged-in USB card 1, device 0; see arecord -l for a list of recording devices
+    inactivityTimeout: -1, // -1 to never timeout or break the connection. Set this to a value in seconds e.g 120 to end connection after 120 seconds of silence
+    language: 'en-US' // see TJBot.prototype.languages.listen
+  },
+  speak: {
+    language: 'en-US', // see TJBot.prototype.languages.speak
+    voice: undefined, // use a specific voice; if undefined, a voice is chosen based on robot.gender and speak.language
+    speakerDeviceId: "plughw:0,0" // plugged-in USB card 1, device 0; see aplay -l for a list of playback devices
+  },
+  see: {
+    confidenceThreshold: {
+      object: 0.5, // only list image tags with confidence > 0.5
+      text: 0.1 // only list text tags with confidence > 0.5
+    },
+    camera: {
+      height: 720,
+      width: 960,
+      verticalFlip: false, // flips the image vertically, may need to set to 'true' if the camera is installed upside-down
+      horizontalFlip: false // flips the image horizontally, should not need to be overridden
+    }
   }
 };
 
@@ -453,85 +475,6 @@ function logSpeak(sender, transcript, intent) {
   server.sendEvent(message)
 
 }
-
-var cv = require('opencv');
-
-function detectFaces(imgsource, curImage) {
-  var starttime = Date.now();
-  var endtime;
-  var COLOR = [0, 255, 255]; // default red
-  var thickness = 1; // default 1
-
-
-  cv.readImage(imgsource, function(err, im) {
-    if (err) throw err;
-    if (im.width() < 1 || im.height() < 1) throw new Error('Image has no size');
-    im.detectObject("haar/face.xml", {}, function(err, faces) {
-      if (err) throw err;
-      for (var i = 0; i < faces.length; i++) {
-        var face = faces[i];
-        im.rectangle([face.x, face.y], [face.width, face.height], COLOR, 2);
-      }
-      // get the first face
-      if (faces.length > 0) {
-        var face = faces[0];
-        img = im.roi(face.x, face.y, face.width, face.height);
-        faceurl = "/img/snaps/" + "facecut" + curImage;
-        img.save("public" + faceurl);
-
-      }
-      endtime = Date.now()
-      console.log("faces found: ", faces.length, "timetaken: ", (endtime - starttime) / 1000)
-      im.save(imgsource);
-      var response = {};
-      response.imageurl = curImage;
-      response.faceurl = faceurl;
-      response.transcript = faces.length + " faces detected.";
-      logVision("tjbot", response)
-      console.log('Image saved to ', imgsource);
-    });
-  });
-
-}
-//
-// var cv = require('opencv');
-//
-// function detectFaces(imgsource, curImage) {
-//   var starttime = Date.now();
-//   var endtime;
-//   var COLOR = [0, 255, 255]; // default red
-//   var thickness = 1; // default 1
-//
-//
-//   cv.readImage(imgsource, function(err, im) {
-//     if (err) throw err;
-//     if (im.width() < 1 || im.height() < 1) throw new Error('Image has no size');
-//     im.detectObject("haar/face.xml", {}, function(err, faces) {
-//       if (err) throw err;
-//       for (var i = 0; i < faces.length; i++) {
-//         var face = faces[i];
-//         im.rectangle([face.x, face.y], [face.width, face.height], COLOR, 2);
-//       }
-//       // get the first face
-//       if (faces.length > 0) {
-//         var face = faces[0];
-//         img = im.roi(face.x, face.y, face.width, face.height);
-//         faceurl = "/img/snaps/" + "facecut" + curImage;
-//         img.save("public" + faceurl);
-//
-//       }
-//       endtime = Date.now()
-//       console.log("faces found: ", faces.length, "timetaken: ", (endtime - starttime) / 1000)
-//       im.save(imgsource);
-//       var response = {};
-//       response.imageurl = curImage;
-//       response.faceurl = faceurl;
-//       response.transcript = faces.length + " faces detected.";
-//       logVision("tjbot", response)
-//       console.log('Image saved to ', imgsource);
-//     });
-//   });
-// }
 
 function getCordinates(query, locationtype, countrycode, admindistrictcode) {
   query = query.replace(/ /g, "+")
