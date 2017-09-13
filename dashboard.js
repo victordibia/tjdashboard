@@ -339,7 +339,7 @@ function findPeaks(audioBuffer, sampleRate, soundFile) {
     max = 0;
     index += step;
   }, interval);
-  tj.playSound(soundFile);
+  tj.play(soundFile);
 }
 
 function logVision(sender, response) {
