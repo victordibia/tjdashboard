@@ -159,7 +159,7 @@ function logTone(max, tones) {
 
 
 function converse(msg) {
- 
+
   tj.converse(WORKSPACEID, msg, function(response) {
     // speak the result
     response = response.object;
@@ -183,9 +183,7 @@ function converse(msg) {
           } else if (matchedIntent == "off_topic") {
             // do nothing
           } else if (matchedIntent == "weather") {
- 
             getCordinates(config.weather.city, "city", config.weather.country, config.weather.state);
- 
           } else {
             tj.speak(conversation_response).then(function() {
               tj.shine("white");
@@ -209,7 +207,7 @@ function converse(msg) {
     } else {
       console.error("The conversation service did not return any response text.");
     }
-    //console.log("conversation response", response)
+    //console.log("conversation response", responsfde)
   });
 }
 
@@ -235,37 +233,37 @@ function wave(conversation_response) {
 }
 
 function seeText(prompt) {
- 
+
 
   tj.speak(prompt).then(function() {
     curImage = Date.now() + ".jpg";
     filePath = fileDir + "/" + curImage;
 
     tj.takePhoto(filePath).then(function(filePath) {
- 
+
       var response = {};
       response.imageurl = curImage;
       response.transcript = "Scanning for text."
       logVision("tjbot", response)
- 
+
 
       tj.recognizeTextInPhoto(filePath).then(function(objects) {
         console.log(" ... response .. ", JSON.stringify(objects))
         var description = objects.images[0].text;
 
         response.description = (description == "" || description == null) ? "No text recognized in the image." : "The words I see are : " + description;
- 
+
         logSpeak("TJBot", response.description);
         tj.speak(response.description).then(function() {
           tj.shine("white");
         })
       });
 
- 
+
     });
 
   })
- 
+
 }
 
 function see(conversation_response) {
@@ -273,7 +271,7 @@ function see(conversation_response) {
   tj.speak(conversation_response).then(function() {
     curImage = Date.now() + ".jpg";
     filePath = fileDir + "/" + curImage;
- 
+
     tj.takePhoto(filePath).then(function(filePath) {
       console.log(" ==== face ===", detectface);
       var response = {};
@@ -328,7 +326,7 @@ function detectFaces(filePath, curImage) {
       }
       logVision("tjbot", response);
     }
-   });
+  });
 }
 
 /**
@@ -387,9 +385,9 @@ function findPeaks(audioBuffer, sampleRate, soundFile) {
     max = 0;
     index += step;
   }, interval);
- 
+
   tj.play(soundFile);
- 
+
 }
 
 function logVision(sender, response) {
@@ -398,9 +396,9 @@ function logVision(sender, response) {
     title: "What TJBot Sees",
     sender: sender,
     transcript: response.transcript,
- 
+
     facelocations: response.facelocations,
- 
+
     description: "",
     imageurl: "/img/snaps/" + response.imageurl,
     timestamp: Date.now(),
@@ -453,7 +451,7 @@ function logSpeak(sender, transcript, intent) {
   }
   //console.log(message)
   server.sendEvent(message)
- 
+
 }
 
 var cv = require('opencv');
@@ -493,7 +491,7 @@ function detectFaces(imgsource, curImage) {
       console.log('Image saved to ', imgsource);
     });
   });
- 
+
 }
 //
 // var cv = require('opencv');
@@ -571,12 +569,12 @@ function getWeather(long, lat) {
       var location = ob.obs_name;
       var temp = ob.temp;
       var desc = ob.wx_phrase;
- 
+
       var feelslike = (ob.feels_like == ob.temp) ? "" : " that feels more like " + ob.feels_like;
       var windspeed = ob.wspd + " km/h";
       var uv = ob.uv_desc;
       var alldesc = "The weather in " + location + " today is " + desc + " with a temperature of " + temp +
- 
+
         feelslike + ". Wind speed is " + windspeed + " and UV is " + uv;
       console.log(alldesc);
       logSpeak("TJBot", alldesc);
