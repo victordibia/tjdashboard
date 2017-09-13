@@ -10,6 +10,7 @@
     "pug": "^2.0.0-beta11",
     "request": "^2.81.0",
     "tjbot": "latest",
+    "web-audio-api": "^0.2.2",
     "ws": "^2.0.3"
   },
   "devDependencies": {},
