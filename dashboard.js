@@ -1,6 +1,6 @@
 var server = require("./server");
 var tjbot = require('tjbot');
-var constants = require('./config');
+var config = require('./config');
 var AudioContext = require('web-audio-api').AudioContext
 context = new AudioContext
 var request = require("request");
@@ -11,34 +11,28 @@ var faceurl = null;
 var yourwords = "";
 
 // obtain our credentials from config.js
-var credentials = constants.credentials;
+var credentials = config.credentials;
 
 // obtain user-specific config
 //var VOICE = constants.config.voice;
-var WORKSPACEID = constants.config.conversationWorkspaceId;
+
+var WORKSPACEID = config.conversationWorkspaceId;
+
 
 // these are the hardware capabilities that TJ needs for this recipe
-var hardware = ['microphone', 'speaker', 'led', 'servo'];
+var hardware = ['microphone', 'speaker', 'led', 'servo', "camera"];
 
-// Set up configuration paramters
-// var config = {
-//     verboseLogging: true, //enable console debugging
-//     servoPin: 7, // set servo pin
-//     cameraParams: {
-//         height: 720,
-//         width: 960,
-//         vflip: false,
-//         hflip: false
-//     } // setup my camera capture parameters
-// };
+// set up configuration paramters
+var config = {
+  log: {
+    level: 'verbose'
+  }
+};
 
 var listening = true;
 var detectface = false;
 var detecttone = false;
 var currentusername = "you";
-
-// obtain our configs from config.js and merge with custom configs
-config = constants.config; // Object.assign(constants.config, config);
 
 // instantiate our TJBot!
 var tj = new tjbot(hardware, config, credentials);
@@ -165,10 +159,11 @@ function logTone(max, tones) {
 
 
 function converse(msg) {
-  tj.converse(WORKSPACEID, msg, function(response, responseText) {
+ 
+  tj.converse(WORKSPACEID, msg, function(response) {
     // speak the result
     response = response.object;
-    if (response.output.text.length > 0) {
+    if (response.output != undefined && response.output.text.length > 0) {
       //console.log(response)
       conversation_response = response.output.text[0];
       if (conversation_response != undefined) {
@@ -188,8 +183,9 @@ function converse(msg) {
           } else if (matchedIntent == "off_topic") {
             // do nothing
           } else if (matchedIntent == "weather") {
-            //getCordinates("denver", "city", "US", "CO");
-            getCordinates(constants.weather.city, "city", constants.weather.country, constants.weather.state);
+ 
+            getCordinates(config.weather.city, "city", config.weather.country, config.weather.state);
+ 
           } else {
             tj.speak(conversation_response).then(function() {
               tj.shine("white");
@@ -239,27 +235,37 @@ function wave(conversation_response) {
 }
 
 function seeText(prompt) {
-  //logSpeak("TJBot", prompt);
+ 
+
   tj.speak(prompt).then(function() {
     curImage = Date.now() + ".jpg";
     filePath = fileDir + "/" + curImage;
-    tj.captureImage(filePath).then(function(filePath) {
+
+    tj.takePhoto(filePath).then(function(filePath) {
+ 
       var response = {};
       response.imageurl = curImage;
       response.transcript = "Scanning for text."
       logVision("tjbot", response)
-      tj.callVisualRecognition("text", filePath).then(function(response) {
-        console.log(" ... response .. ", response.description)
-        response.description = (response.description == "" || response.description == null) ? "No text recognized in the image." : "The words I see are : " + response.description;
+ 
+
+      tj.recognizeTextInPhoto(filePath).then(function(objects) {
+        console.log(" ... response .. ", JSON.stringify(objects))
+        var description = objects.images[0].text;
+
+        response.description = (description == "" || description == null) ? "No text recognized in the image." : "The words I see are : " + description;
+ 
         logSpeak("TJBot", response.description);
         tj.speak(response.description).then(function() {
           tj.shine("white");
         })
-
       });
-    })
 
-  });
+ 
+    });
+
+  })
+ 
 }
 
 function see(conversation_response) {
@@ -267,29 +273,62 @@ function see(conversation_response) {
   tj.speak(conversation_response).then(function() {
     curImage = Date.now() + ".jpg";
     filePath = fileDir + "/" + curImage;
-    tj.captureImage(filePath).then(function(filePath) {
+ 
+    tj.takePhoto(filePath).then(function(filePath) {
       console.log(" ==== face ===", detectface);
+      var response = {};
+      response.imageurl = curImage;
+      response.transcript = "";
+
       if (detectface) {
         detectFaces(filePath, curImage);
       } else {
-        var response = {};
-        response.imageurl = curImage;
-        response.transcript = "";
+
         logVision("tjbot", response);
       }
 
-      tj.callVisualRecognition("classify", filePath).then(function(response) {
-        console.log(" ... response .. ", response.description)
-        if (response.description != null) {
-          logSpeak("TJBot", response.description);
-          tj.speak(response.description).then(function() {
-            tj.shine("white");
-          })
-        }
+      tj.recognizeObjectsInPhoto(filePath).then(function(objects) {
+        console.log(" ... response .. ", objects)
+        var description = ""
+        objects.forEach(function(each) {
+          if (each.score >= 0.5) {
+            description = description + ", " + each.class
+          }
+        })
+        response.description = (description == "" || description == null) ? "No objects recognized in the image." : "The objects I see are : " + description;
+        logSpeak("TJBot", response.description);
+        tj.speak(response.description).then(function() {
+          tj.shine("white");
+        })
       });
+
     })
 
   });
+}
+
+
+function detectFaces(filePath, curImage) {
+  const params = {
+    images_file: fs.createReadStream(filePath)
+  };
+
+  tj._visualRecognition.detectFaces(params, function(err, res) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(JSON.stringify(res, null, 2));
+
+      var response = {
+        facelocations: res,
+        imageurl: curImage,
+        faceurl: faceurl,
+        transcript: res.images[0].faces.length + " faces detected."
+
+      }
+      logVision("tjbot", response);
+    }
+   });
 }
 
 /**
@@ -348,7 +387,9 @@ function findPeaks(audioBuffer, sampleRate, soundFile) {
     max = 0;
     index += step;
   }, interval);
-  tj.playSound(soundFile);
+ 
+  tj.play(soundFile);
+ 
 }
 
 function logVision(sender, response) {
@@ -357,6 +398,9 @@ function logVision(sender, response) {
     title: "What TJBot Sees",
     sender: sender,
     transcript: response.transcript,
+ 
+    facelocations: response.facelocations,
+ 
     description: "",
     imageurl: "/img/snaps/" + response.imageurl,
     timestamp: Date.now(),
@@ -409,6 +453,7 @@ function logSpeak(sender, transcript, intent) {
   }
   //console.log(message)
   server.sendEvent(message)
+ 
 }
 
 var cv = require('opencv');
@@ -448,7 +493,47 @@ function detectFaces(imgsource, curImage) {
       console.log('Image saved to ', imgsource);
     });
   });
+ 
 }
+//
+// var cv = require('opencv');
+//
+// function detectFaces(imgsource, curImage) {
+//   var starttime = Date.now();
+//   var endtime;
+//   var COLOR = [0, 255, 255]; // default red
+//   var thickness = 1; // default 1
+//
+//
+//   cv.readImage(imgsource, function(err, im) {
+//     if (err) throw err;
+//     if (im.width() < 1 || im.height() < 1) throw new Error('Image has no size');
+//     im.detectObject("haar/face.xml", {}, function(err, faces) {
+//       if (err) throw err;
+//       for (var i = 0; i < faces.length; i++) {
+//         var face = faces[i];
+//         im.rectangle([face.x, face.y], [face.width, face.height], COLOR, 2);
+//       }
+//       // get the first face
+//       if (faces.length > 0) {
+//         var face = faces[0];
+//         img = im.roi(face.x, face.y, face.width, face.height);
+//         faceurl = "/img/snaps/" + "facecut" + curImage;
+//         img.save("public" + faceurl);
+//
+//       }
+//       endtime = Date.now()
+//       console.log("faces found: ", faces.length, "timetaken: ", (endtime - starttime) / 1000)
+//       im.save(imgsource);
+//       var response = {};
+//       response.imageurl = curImage;
+//       response.faceurl = faceurl;
+//       response.transcript = faces.length + " faces detected.";
+//       logVision("tjbot", response)
+//       console.log('Image saved to ', imgsource);
+//     });
+//   });
+// }
 
 function getCordinates(query, locationtype, countrycode, admindistrictcode) {
   query = query.replace(/ /g, "+")
@@ -486,10 +571,12 @@ function getWeather(long, lat) {
       var location = ob.obs_name;
       var temp = ob.temp;
       var desc = ob.wx_phrase;
-      var feelslike = ob.feels_like;
+ 
+      var feelslike = (ob.feels_like == ob.temp) ? "" : " that feels more like " + ob.feels_like;
       var windspeed = ob.wspd + " km/h";
       var uv = ob.uv_desc;
-      var alldesc = "The weather in " + location + " today is " + desc + " with a temperature of " + temp + " that feels more like " +
+      var alldesc = "The weather in " + location + " today is " + desc + " with a temperature of " + temp +
+ 
         feelslike + ". Wind speed is " + windspeed + " and UV is " + uv;
       console.log(alldesc);
       logSpeak("TJBot", alldesc);

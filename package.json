@@ -9,7 +9,8 @@
     "jquery-ui": "^1.12.1",
     "pug": "^2.0.0-beta11",
     "request": "^2.81.0",
-    "tjbot": "git://github.com/victordibia/tjbotlib.git",
+    "tjbot": "latest",
+    "web-audio-api": "^0.2.2",
     "ws": "^2.0.3"
   },
   "devDependencies": {},
@@ -17,8 +18,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "optionalDependencies": {
-    "//": "Open CV needs to be installed on your raspberry first before installing this wrapper library.",
-    "opencv": "latest"
   },
   "repository": {
     "type": "git",

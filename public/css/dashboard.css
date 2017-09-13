@@ -1,268 +1,273 @@
 .applogo {
-    width: 30px;
-    height: 26px;
-    margin-right: 5px;
+  width: 30px;
+  height: 26px;
+  margin-right: 5px;
 }
 
 .switchbutton {
-    font-size: 30px;
+  font-size: 30px;
 }
 
 .inl-bl {
-    display: inline-block;
+  display: inline-block;
 }
 
 .colorpicker-2x .colorpicker-saturation {
-    width: 200px;
-    height: 200px;
+  width: 200px;
+  height: 200px;
 }
 
 .colorpicker-2x .colorpicker-hue, .colorpicker-2x .colorpicker-alpha {
-    width: 30px;
-    height: 200px;
+  width: 30px;
+  height: 200px;
 }
 
 .colorpicker-2x .colorpicker-color, .colorpicker-2x .colorpicker-color div {
-    height: 30px;
+  height: 30px;
 }
 
 .selectbutton {
-    margin: 0px 10px 10px 0px;
+  margin: 0px 10px 10px 0px;
 }
 
 .timelinetitle {
-    font-weight: bold;
-    font-size: 30px;
+  font-weight: bold;
+  font-size: 30px;
 }
 
 .modaltext {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .familiarity {
-    font-size: 40px;
-    font-weight: bold;
-    color: green;
+  font-size: 40px;
+  font-weight: bold;
+  color: green;
 }
 
 .slidertag {
-    font-size: 20px;
-    font-weight: bold;
-    color: grey;
-    display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  color: grey;
+  display: inline-block;
 }
 
 .buttonsubtext {
-    display: block;
-    font-size: 15px;
+  display: block;
+  font-size: 15px;
 }
 
 .buttonmaintext {
-    display: block;
-    font-size: 30px;
-    font-weight: bold;
+  display: block;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .selectimage {
-    margin: 0px 0px 10px 0px;
-    width: 100%;
+  margin: 0px 0px 0px 0px;
+  width: 100%;
+}
+
+canvas {
+  margin: 0px 0px 10px 0px;
+  width: 100%;
 }
 
 .bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .tagframe {
-    color: #fff;
-    font-size: 13px;
-    font-weight: bold;
-    padding: 4px 10px 4px 10px;
-    margin: 0px 10px 10px 0px;
-    display: inline-block;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 4px 10px 4px 10px;
+  margin: 10px 10px 10px 0px;
+  display: inline-block;
 }
 
 .transcript {
-    padding: 10px 0px 0px 0px;
-    font-size: 35px;
+  padding: 10px 0px 0px 0px;
+  font-size: 35px;
 }
 
 
 /* CSS Document */
 
 .codebox:hover {
-    box-shadow: 3px 3px 3px #888888;
-    cursor: pointer;
+  box-shadow: 3px 3px 3px #888888;
+  cursor: pointer;
 }
 
 .codecard {
-    font-size: 16px;
-    color: #666;
-    padding: 10px;
+  font-size: 16px;
+  color: #666;
+  padding: 10px;
 }
 
 .codeboxb {}
 
 .codetags {
-    display: inline-block;
+  display: inline-block;
 }
 
 .codeboxb:hover {
-    background: #00A65A;
-    color: #fff;
+  background: #00A65A;
+  color: #fff;
 }
 
 .loadtext {
-    color: #FFF;
-    padding: 10px 10px 10px 10px;
-    background: #00a65a;
+  color: #FFF;
+  padding: 10px 10px 10px 10px;
+  background: #00a65a;
 }
 
 .titletext {
-    font-weight: bold;
-    font-size: 18px;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .carouseltext {
-    color: #fff;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
+  color: #fff;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .greencarousel {
-    width: 100%;
-    height: 500px;
-    background: #00a65a;
+  width: 100%;
+  height: 500px;
+  background: #00a65a;
 }
 
 .greenback {
-    color: #FFF;
-    padding: 10px 10px 10px 10px;
-    background: #00a65a;
+  color: #FFF;
+  padding: 10px 10px 10px 10px;
+  background: #00a65a;
 }
 
 .cardresponse {
-    border: 2px solid #fff;
-    font-weight: bold;
-    padding: 0px 5px 2px 5px;
-    margin: 0px 5px 0px 5px;
+  border: 2px solid #fff;
+  font-weight: bold;
+  padding: 0px 5px 2px 5px;
+  margin: 0px 5px 0px 5px;
 }
 
 .switch-button-label {
-    float: left;
-    font-size: 10pt;
-    cursor: pointer;
+  float: left;
+  font-size: 10pt;
+  cursor: pointer;
 }
 
 .switch-button-label.off {
-    color: #adadad;
+  color: #adadad;
 }
 
 .switch-button-label.on {
-    color: #0088CC;
+  color: #0088CC;
 }
 
 .switch-button-background {
-    float: left;
-    position: relative;
-    background: #ccc;
-    border: 1px solid #aaa;
-    margin: 1px 10px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    cursor: pointer;
+  float: left;
+  position: relative;
+  background: #ccc;
+  border: 1px solid #aaa;
+  margin: 1px 10px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .switch-button-button {
-    position: absolute;
-    left: -1px;
-    top: -1px;
-    background: #FAFAFA;
-    border: 1px solid #aaa;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  background: #FAFAFA;
+  border: 1px solid #aaa;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
 }
 
 .pad0 {
-    padding: 0px 10px 0px 0px;
+  padding: 0px 10px 0px 0px;
 }
 
 .chatimg {
-    height: 100%;
-    width: 100%;
-    padding: 0px;
-    margin: 0px 0px 0px 0px;
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  margin: 0px 0px 0px 0px;
 }
 
 .sendertitle {
-    display: block;
-    font-weight: bold;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    padding: 4px 4px 4px 10px;
-    margin: 0px 0px 10px 0px;
+  display: block;
+  font-weight: bold;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  padding: 4px 4px 4px 10px;
+  margin: 0px 0px 10px 0px;
 }
 
 @media(max-width:1000px) {
-    .chatimg {
-        display: none;
-    }
-    .sendertitle {
-        display: none;
-    }
+  .chatimg {
+    display: none;
+  }
+  .sendertitle {
+    display: none;
+  }
 }
 
 .chattext {
-    border-radius: 5px;
-    position: relative;
-    padding: 5px 10px;
-    margin: 0px 10px 10px 0px;
-    background: #d2d6de;
-    border: 1px solid #d2d6de;
-    color: #444444;
-    font-size: 25px;
+  border-radius: 5px;
+  position: relative;
+  padding: 5px 10px;
+  margin: 0px 10px 10px 0px;
+  background: #d2d6de;
+  border: 1px solid #d2d6de;
+  color: #444444;
+  font-size: 25px;
 }
 
 .margin10 {
-    margin: 10px 5px 10px 5px;
+  margin: 10px 5px 10px 5px;
 }
 
 .border {
-    border: 3px solid #000
+  border: 3px solid #000
 }
 
 .updatetype {
-    padding: 5px 20px 5px 20px;
-    font-weight: bold;
-    font-size: 25px;
-    margin: 0px 0px 10px 0px;
-    display: inline-block;
-    background-color: #fff;
-    border-radius: 4px;
+  padding: 5px 20px 5px 20px;
+  font-weight: bold;
+  font-size: 25px;
+  margin: 0px 0px 10px 0px;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 4px;
 }
 
 .barlabel {
-    padding: 0px 0px 0px 10px;
+  padding: 0px 0px 0px 10px;
 }
 
 .intent {
-    padding: 5px 20px 5px 20px;
-    font-weight: bold;
-    font-size: 25px;
-    margin: 0px 10px 10px 0px;
-    display: block;
-    background-color: #fff;
-    border-radius: 4px;
+  padding: 5px 20px 5px 20px;
+  font-weight: bold;
+  font-size: 25px;
+  margin: 0px 10px 10px 0px;
+  display: block;
+  background-color: #fff;
+  border-radius: 4px;
 }
 
 .bartop {
-    margin: 8px 0px 0px 0px;
+  margin: 8px 0px 0px 0px;
 }
 
 .mybar {
-    margin: 0px 10px 10px 0px;
+  margin: 0px 10px 10px 0px;
 }
 
 
