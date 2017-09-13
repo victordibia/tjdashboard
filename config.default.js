@@ -3,6 +3,14 @@ exports.webServerNumber = 8078;
 // User-specific CONFIGURATION
 exports.conversationWorkspaceId = '';
 
+// Setup Weather location details
+
+exports.weather = {
+    city: "denver",
+    state: "CO",
+    country: "US"
+}
+
 // Create the credentials object for export
 exports.credentials = {};
 
