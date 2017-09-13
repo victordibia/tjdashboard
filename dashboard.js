@@ -232,31 +232,31 @@ function wave(conversation_response) {
 function seeText(prompt) {
 
   tj.speak(prompt).then(function() {
-      curImage = Date.now() + ".jpg";
-      filePath = fileDir + "/" + curImage;
+    curImage = Date.now() + ".jpg";
+    filePath = fileDir + "/" + curImage;
 
-      tj.takePhoto(filePath).then(function(filePath) {
-          var response = {};
-          response.imageurl = curImage;
-          response.transcript = "Scanning for text."
-          logVision("tjbot", response)
+    tj.takePhoto(filePath).then(function(filePath) {
+      var response = {};
+      response.imageurl = curImage;
+      response.transcript = "Scanning for text."
+      logVision("tjbot", response)
 
-          tj.recognizeTextInPhoto(filePath).then(function(objects)) {
-            console.log(" ... response .. ", objects)
-            var description = ""
-            objects.forEach(function(each) {
-              if (each.score > 0.5) {
-                description = description + " " + each.class
-              }
-            })
-            response.description = (response.description == "" || response.description == null) ? "No text recognized in the image." : "The words I see are : " + response.description;
-            logSpeak("TJBot", response.description);
-            tj.speak(response.description).then(function() {
-              tj.shine("white");
-            })
-          });
-
+      tj.recognizeTextInPhoto(filePath).then(function(objects) {
+        console.log(" ... response .. ", objects)
+        var description = ""
+        objects.forEach(function(each) {
+          if (each.score > 0.5) {
+            description = description + " " + each.class
+          }
+        })
+        response.description = (response.description == "" || response.description == null) ? "No text recognized in the image." : "The words I see are : " + response.description;
+        logSpeak("TJBot", response.description);
+        tj.speak(response.description).then(function() {
+          tj.shine("white");
+        })
       });
+
+    });
 
   })
 }
@@ -264,38 +264,35 @@ function seeText(prompt) {
 function see(conversation_response) {
   //logSpeak("TJBot", conversation_response);
   tj.speak(conversation_response).then(function() {
-      curImage = Date.now() + ".jpg";
-      filePath = fileDir + "/" + curImage;
-      tj.takePhoto(filePath).then(function(filePath) {
-          console.log(" ==== face ===", detectface);
-          if (detectface) {
-            detectFaces(filePath, curImage);
-          } else {
-            var response = {};
-            response.imageurl = curImage;
-            response.transcript = "";
-            logVision("tjbot", response);
+    curImage = Date.now() + ".jpg";
+    filePath = fileDir + "/" + curImage;
+    tj.takePhoto(filePath).then(function(filePath) {
+      console.log(" ==== face ===", detectface);
+      if (detectface) {
+        detectFaces(filePath, curImage);
+      } else {
+        var response = {};
+        response.imageurl = curImage;
+        response.transcript = "";
+        logVision("tjbot", response);
+      }
+
+      tj.recognizeObjectsInPhoto(filePath).then(function(objects) {
+        console.log(" ... response .. ", objects)
+        var description = ""
+        objects.forEach(function(each) {
+          if (each.score > 0.5) {
+            description = description + " " + each.class
           }
+        })
+        response.description = (response.description == "" || response.description == null) ? "No objects recognized in the image." : "The words I see are : " + response.description;
+        logSpeak("TJBot", response.description);
+        tj.speak(response.description).then(function() {
+          tj.shine("white");
+        })
+      });
 
-          tj.recognizeObjectsInPhoto(filePath).then(function(objects)) {
-            ...
-          });
-
-        tj.callVisualRecognition("classify", filePath).then(function(response) {
-          console.log(" ... response .. ", objects)
-          var description = ""
-          objects.forEach(function(each) {
-            if (each.score > 0.5) {
-              description = description + " " + each.class
-            }
-          })
-          response.description = (response.description == "" || response.description == null) ? "No objects recognized in the image." : "The words I see are : " + response.description;
-          logSpeak("TJBot", response.description);
-          tj.speak(response.description).then(function() {
-            tj.shine("white");
-          })
-        });
-      })
+    })
 
   });
 }
