@@ -160,7 +160,7 @@ function converse(msg) {
   tj.converse(WORKSPACEID, msg, function(response) {
     // speak the result
     //response = response.object;
-    if (response.output.text.length > 0) {
+    if (response.output && response.output.text.length > 0) {
       //console.log(response)
       conversation_response = response.output.text[0];
       if (conversation_response != undefined) {
