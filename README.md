@@ -1,8 +1,7 @@
-# tjdashboard [Beta]
+# tjdashboard  
 > process representation for TJBot
 
-This app displays a dashboard that attempts to show the processes that occur on tjbot behind the scenes.
-In addition, it also provides UI/buttons that can be used to control the bot e.g. control the LED color, make your bot look around and describe what it sees, wave its arm etc.
+This app displays a dashboard to visualize processes that occur on tjbot as you interact with it. In addition, it also provides UI/buttons that can be used to control the bot e.g. control the LED color, make your bot look around and describe what it sees, wave its arm etc.
 
 <img src="/public/img/screen.jpg" width="100%">
 
@@ -10,7 +9,7 @@ In addition, it also provides UI/buttons that can be used to control the bot e.g
 ## How It Works
 - Starts up a webserver (express) and serves up an interface which can be assessed via a browser on the pi localhost, port 8068. http:pi.ip.address:8068.
 - TJBot events are streamed to the interface which displays them. Examples of events include hearing a new message, receiving a response from a call to the conversation service etc.
-- Note. This recipe utilizes the experimental [TJBot library](https://github.com/ibmtjbot/tjbotlib) to encapsulate simple functions for the bot.
+- Note. This recipe utilizes the [TJBot library](https://github.com/ibmtjbot/tjbotlib) to encapsulate simple functions for the bot.
 
 
 ## Hardware
@@ -57,15 +56,6 @@ Install ALSA tools (required for recording audio on Raspberry Pi). (Some of the 
 
     sudo apt-get install alsa-base alsa-utils
     sudo apt-get install libasound2-dev
-
-## Vision Recognition with opencv
-
-You can run simple machine vision algorithms locally on your raspberry pi. This is done using the nodejs opencv wrapper. But first, you have to install open cv on your pi.
-
-    sudo apt-get install build-essential
-    sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
-    sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
-    sudo apt-get install libopencv-dev
 
 
 ## Setup Watson conversation
@@ -134,4 +124,3 @@ Sample utterances are
 You can add more utterances by creating additional intents on your watson conversation dialog.
 
 For the dance command, your robot processes wav files in the sounds folder. Please ensure you have a .wav file there and set that as your sound file.
- 
