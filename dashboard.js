@@ -308,7 +308,7 @@ function detectFaces(filePath, curImage) {
       var response = {
         facelocations: res,
         imageurl: "img/faceg.jpg",
-        transcript: res.images[0].faces.length + " faces detected.";
+        transcript: res.images[0].faces.length + " faces detected."
         logVision("tjbot", response);
       }
     }
