@@ -308,7 +308,7 @@ function detectFaces(filePath, curImage) {
       var response = {
         facelocations: res,
         imageurl: "img/faceg.jpg",
-        response.transcript = res.images[0].faces.length + " faces detected.";
+        transcript: res.images[0].faces.length + " faces detected.";
         logVision("tjbot", response);
       }
     }
@@ -433,45 +433,45 @@ function logSpeak(sender, transcript, intent) {
   //console.log(message)
   server.sendEvent(message)
 }
-
-var cv = require('opencv');
-
-function detectFaces(imgsource, curImage) {
-  var starttime = Date.now();
-  var endtime;
-  var COLOR = [0, 255, 255]; // default red
-  var thickness = 1; // default 1
-
-
-  cv.readImage(imgsource, function(err, im) {
-    if (err) throw err;
-    if (im.width() < 1 || im.height() < 1) throw new Error('Image has no size');
-    im.detectObject("haar/face.xml", {}, function(err, faces) {
-      if (err) throw err;
-      for (var i = 0; i < faces.length; i++) {
-        var face = faces[i];
-        im.rectangle([face.x, face.y], [face.width, face.height], COLOR, 2);
-      }
-      // get the first face
-      if (faces.length > 0) {
-        var face = faces[0];
-        img = im.roi(face.x, face.y, face.width, face.height);
-        faceurl = "/img/snaps/" + "facecut" + curImage;
-        img.save("public" + faceurl);
-
-      }
-      endtime = Date.now()
-      console.log("faces found: ", faces.length, "timetaken: ", (endtime - starttime) / 1000)
-      im.save(imgsource);
-      var response = {};
-      response.imageurl = curImage;
-      response.faceurl = faceurl;
-      response.transcript = faces.length + " faces detected.";
-      logVision("tjbot", response)
-      console.log('Image saved to ', imgsource);
-    });
-  });
-}
+//
+// var cv = require('opencv');
+//
+// function detectFaces(imgsource, curImage) {
+//   var starttime = Date.now();
+//   var endtime;
+//   var COLOR = [0, 255, 255]; // default red
+//   var thickness = 1; // default 1
+//
+//
+//   cv.readImage(imgsource, function(err, im) {
+//     if (err) throw err;
+//     if (im.width() < 1 || im.height() < 1) throw new Error('Image has no size');
+//     im.detectObject("haar/face.xml", {}, function(err, faces) {
+//       if (err) throw err;
+//       for (var i = 0; i < faces.length; i++) {
+//         var face = faces[i];
+//         im.rectangle([face.x, face.y], [face.width, face.height], COLOR, 2);
+//       }
+//       // get the first face
+//       if (faces.length > 0) {
+//         var face = faces[0];
+//         img = im.roi(face.x, face.y, face.width, face.height);
+//         faceurl = "/img/snaps/" + "facecut" + curImage;
+//         img.save("public" + faceurl);
+//
+//       }
+//       endtime = Date.now()
+//       console.log("faces found: ", faces.length, "timetaken: ", (endtime - starttime) / 1000)
+//       im.save(imgsource);
+//       var response = {};
+//       response.imageurl = curImage;
+//       response.faceurl = faceurl;
+//       response.transcript = faces.length + " faces detected.";
+//       logVision("tjbot", response)
+//       console.log('Image saved to ', imgsource);
+//     });
+//   });
+// }
 
 function getCordinates(query, locationtype, countrycode, admindistrictcode) {
   query = query.replace(/ /g, "+")
