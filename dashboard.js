@@ -242,13 +242,9 @@ function seeText(prompt) {
       logVision("tjbot", response)
 
       tj.recognizeTextInPhoto(filePath).then(function(objects) {
-        console.log(" ... response .. ", objects)
-        var description = ""
-        objects.forEach(function(each) {
-          if (each.score > 0.5) {
-            description = description + " " + each.class
-          }
-        })
+        console.log(" ... response .. ", JSON.stringify(objects))
+        var description = objects.images[0].text;
+
         response.description = (description == "" || description == null) ? "No text recognized in the image." : "The words I see are : " + description;
         logSpeak("TJBot", response.description);
         tj.speak(response.description).then(function() {
@@ -282,7 +278,7 @@ function see(conversation_response) {
         var description = ""
         objects.forEach(function(each) {
           if (each.score >= 0.5) {
-            description = description + " " + each.class
+            description = description + ", " + each.class
           }
         })
         response.description = (description == "" || description == null) ? "No objects recognized in the image." : "The words I see are : " + description;
