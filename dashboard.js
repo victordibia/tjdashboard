@@ -384,6 +384,7 @@ function logVision(sender, response) {
     title: "What TJBot Sees",
     sender: sender,
     transcript: response.transcript,
+    facelocations: response.facelocations,
     description: "",
     imageurl: "/img/snaps/" + response.imageurl,
     timestamp: Date.now(),

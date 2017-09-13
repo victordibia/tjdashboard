@@ -111,7 +111,7 @@
     };
 
     ws.onmessage = function(evt) {
-      //console.log("event data:", evt.data);
+      console.log("event data:", evt.data);
       var data = JSON.parse(evt.data);
 
       var bgcolor = data.confidence >= 0.5 ? "bg-green" : "bg-red";
