@@ -249,7 +249,7 @@ function seeText(prompt) {
             description = description + " " + each.class
           }
         })
-        response.description = (response.description == "" || response.description == null) ? "No text recognized in the image." : "The words I see are : " + response.description;
+        response.description = (description == "" || description == null) ? "No text recognized in the image." : "The words I see are : " + response.description;
         logSpeak("TJBot", response.description);
         tj.speak(response.description).then(function() {
           tj.shine("white");
@@ -281,11 +281,11 @@ function see(conversation_response) {
         console.log(" ... response .. ", objects)
         var description = ""
         objects.forEach(function(each) {
-          if (each.score > 0.5) {
+          if (each.score >= 0.5) {
             description = description + " " + each.class
           }
         })
-        response.description = (response.description == "" || response.description == null) ? "No objects recognized in the image." : "The words I see are : " + response.description;
+        response.description = (description == "" || description == null) ? "No objects recognized in the image." : "The words I see are : " + response.description;
         logSpeak("TJBot", response.description);
         tj.speak(response.description).then(function() {
           tj.shine("white");
