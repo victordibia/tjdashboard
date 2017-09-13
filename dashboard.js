@@ -309,7 +309,8 @@ function detectFaces(filePath, curImage) {
 
       var response = {
         facelocations: res,
-        imageurl: "img/faceg.jpg",
+        imageurl: curImage,
+        faceurl: faceurl,
         transcript: res.images[0].faces.length + " faces detected."
 
       }
