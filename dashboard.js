@@ -309,8 +309,9 @@ function detectFaces(filePath, curImage) {
         facelocations: res,
         imageurl: "img/faceg.jpg",
         transcript: res.images[0].faces.length + " faces detected."
-        logVision("tjbot", response);
+
       }
+      logVision("tjbot", response);
     }
   });
 }
