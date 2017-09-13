@@ -264,12 +264,14 @@ function see(conversation_response) {
     filePath = fileDir + "/" + curImage;
     tj.takePhoto(filePath).then(function(filePath) {
       console.log(" ==== face ===", detectface);
+      var response = {};
+      response.imageurl = curImage;
+      response.transcript = "";
+
       if (detectface) {
         detectFaces(filePath, curImage);
       } else {
-        var response = {};
-        response.imageurl = curImage;
-        response.transcript = "";
+
         logVision("tjbot", response);
       }
 
