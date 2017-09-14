@@ -277,8 +277,6 @@ function seeText(prompt) {
         tj.shine("white");
       })
     });
-
-
   });
 }
 
@@ -296,8 +294,10 @@ function see(conversation_response) {
 
     if (detectface) {
       detectFaces(filePath, curImage);
+    } else {
+      logVision("tjbot", response);
     }
-    logVision("tjbot", response);
+
 
 
     tj.recognizeObjectsInPhoto(filePath).then(function(objects) {
