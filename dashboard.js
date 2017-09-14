@@ -262,10 +262,11 @@ function seeText(prompt) {
   filePath = fileDir + "/" + curImage;
 
   tj.takePhoto(filePath).then(function(filePath) {
-    logVision("tjbot", response)
+
     var response = {};
     response.imageurl = curImage;
     response.transcript = "Scanning for text."
+    logVision("tjbot", response)
 
     tj.recognizeTextInPhoto(filePath).then(function(objects) {
       console.log(" ... response .. ", JSON.stringify(objects))
