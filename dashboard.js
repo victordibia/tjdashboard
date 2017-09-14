@@ -10,6 +10,7 @@ var curImage = "";
 var faceurl = null;
 var yourwords = "";
 
+
 // obtain our credentials from config.js
 var credentials = config.credentials;
 
@@ -255,76 +256,65 @@ function wave(conversation_response) {
 }
 
 function seeText(prompt) {
+  tj.speak(prompt).then(function() {})
 
+  curImage = Date.now() + ".jpg";
+  filePath = fileDir + "/" + curImage;
 
-  tj.speak(prompt).then(function() {
-    curImage = Date.now() + ".jpg";
-    filePath = fileDir + "/" + curImage;
+  tj.takePhoto(filePath).then(function(filePath) {
+    logVision("tjbot", response)
+    var response = {};
+    response.imageurl = curImage;
+    response.transcript = "Scanning for text."
 
-    tj.takePhoto(filePath).then(function(filePath) {
-
-      var response = {};
-      response.imageurl = curImage;
-      response.transcript = "Scanning for text."
-      logVision("tjbot", response)
-
-
-      tj.recognizeTextInPhoto(filePath).then(function(objects) {
-        console.log(" ... response .. ", JSON.stringify(objects))
-        var description = objects.images[0].text;
-
-        response.description = (description == "" || description == null) ? "No text recognized in the image." : "The words I see are : " + description;
-
-        logSpeak("TJBot", response.description);
-        tj.speak(response.description).then(function() {
-          tj.shine("white");
-        })
-      });
-
-
+    tj.recognizeTextInPhoto(filePath).then(function(objects) {
+      console.log(" ... response .. ", JSON.stringify(objects))
+      var description = objects.images[0].text;
+      response.description = (description == "" || description == null) ? "No text recognized in the image." : "The words I see are : " + description;
+      logSpeak("TJBot", response.description);
+      tj.speak(response.description).then(function() {
+        tj.shine("white");
+      })
     });
 
-  })
 
+  });
 }
 
 function see(conversation_response) {
   //logSpeak("TJBot", conversation_response);
-  tj.speak(conversation_response).then(function() {
-    curImage = Date.now() + ".jpg";
-    filePath = fileDir + "/" + curImage;
+  tj.speak(conversation_response);
+  curImage = Date.now() + ".jpg";
+  filePath = fileDir + "/" + curImage;
 
-    tj.takePhoto(filePath).then(function(filePath) {
-      console.log(" ==== face ===", detectface);
-      var response = {};
-      response.imageurl = curImage;
-      response.transcript = "";
+  tj.takePhoto(filePath).then(function(filePath) {
+    console.log(" ==== face ===", detectface);
+    var response = {};
+    response.imageurl = curImage;
+    response.transcript = "";
 
-      if (detectface) {
-        detectFaces(filePath, curImage);
-      } else {
+    if (detectface) {
+      detectFaces(filePath, curImage);
+    }
+    logVision("tjbot", response);
 
-        logVision("tjbot", response);
-      }
 
-      tj.recognizeObjectsInPhoto(filePath).then(function(objects) {
-        console.log(" ... response .. ", objects)
-        var description = ""
-        objects.forEach(function(each) {
-          if (each.score >= 0.5) {
-            description = description + ", " + each.class
-          }
-        })
-        response.description = (description == "" || description == null) ? "No objects recognized in the image." : "The objects I see are : " + description;
-        logSpeak("TJBot", response.description);
-        tj.speak(response.description).then(function() {
-          tj.shine("white");
-        })
-      });
+    tj.recognizeObjectsInPhoto(filePath).then(function(objects) {
+      console.log(" ... response .. ", objects)
+      var description = ""
+      objects.forEach(function(each) {
+        if (each.score >= 0.5) {
+          description = description + ", " + each.class
+        }
+      })
+      response.description = (description == "" || description == null) ? "No objects recognized in the image." : "The objects I see are : " + description;
+      logSpeak("TJBot", response.description);
+      tj.speak(response.description).then(function() {
+        tj.shine("white");
+      })
+    });
 
-    })
-
-  });
+  })
 }
 
 
@@ -344,7 +334,6 @@ function detectFaces(filePath, curImage) {
         imageurl: curImage,
         faceurl: faceurl,
         transcript: res.images[0].faces.length + " faces detected."
-
       }
       logVision("tjbot", response);
     }
