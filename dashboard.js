@@ -281,12 +281,10 @@ function see(conversation_response) {
       var description = "";
       var numMaxTags = 6;
       var i = 0;
-      var each;
 
       for (i = objects.length; i > (objects.length - numMaxTags); i--) {
-        each = objects[i];
-        if (each.score >= 0.5 && i < numMaxTags) {
-          description = description + ", " + each.class
+        if (objects[i].score >= 0.5 && i < numMaxTags) {
+          description = description + ", " + objects[i].class
         }
       }
       response.description = (description == "" || description == null) ? "No objects recognized in the image." : "The objects I see are : " + description;
