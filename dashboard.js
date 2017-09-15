@@ -280,9 +280,8 @@ function see(conversation_response) {
       console.log(" ... response .. ", objects)
       var description = "";
       var numMaxTags = 6;
-      var i = 0;
 
-      for (i = objects.length; i > (objects.length - numMaxTags); i--) {
+      for (var i = objects.length; i > (objects.length - numMaxTags); i--) {
         if (objects[i].score >= 0.5 && i < numMaxTags) {
           description = description + ", " + objects[i].class
         }
