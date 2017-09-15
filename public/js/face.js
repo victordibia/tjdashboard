@@ -191,11 +191,11 @@
         var tonebars = "";
 
         data.tones.forEach(function(tone) {
-          var score = tone.score.toFixed(0) * 100;
+          var score = tone.score.toFixed(2) * 100;
           tonebars = tonebars + "<div class='mybar row'> " +
             "<div class='col-md-2 barlabel '> " + tone.tone_id + " ( " + score + " %) </div> " +
             "<div class='progress progress-xs active bartop'> " +
-            "    <div class='progress-bar " + getColor(tone.tone_id) + " progress-bar-striped' role='progressbar' aria-valuenow=' " + score.toFixed(0) + " ' aria-valuemin='0' aria-valuemax='100' style='width: " + score.toFixed(0) + "%'></div>" +
+            "    <div class='progress-bar " + getColor(tone.tone_id) + " progress-bar-striped' role='progressbar' aria-valuenow=' " + score + " ' aria-valuemin='0' aria-valuemax='100' style='width: " + score + "%'></div>" +
             "</div>" +
             "</div>";
         })

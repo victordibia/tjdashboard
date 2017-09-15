@@ -10,7 +10,8 @@ var fileDir = process.cwd() + "/public/img/snaps"
 var curImage = "";
 var faceurl = null;
 var yourwords = "";
-
+var lastIntent;
+var matchedIntent;
 
 // obtain our credentials from config.js
 var credentials = config.credentials;
@@ -134,10 +135,11 @@ function checkName(msg) {
 }
 
 function logTone(max, tones) {
+  var maxscore = max.score * 100;
   var message = {
     type: "tone",
     sender: "TJBot",
-    title: "Main emotion detected: " + max.tone_id + " (" + max.score.toFixed(2) * 100 + "%)",
+    title: "Main emotion detected: " + max.tone_id + " (" + maxscore + "%)",
     transcript: yourwords,
     maxtone: max,
     description: "",
@@ -165,7 +167,7 @@ function converse(msg) {
       //console.log(response)
       conversation_response = response.output.text[0];
       if (conversation_response != undefined) {
-        var matchedIntent = response.intents[0].intent; // intent with the highest confidence
+        matchedIntent = response.intents[0].intent; // intent with the highest confidence
         var intentconfidence = response.intents[0].confidence;
         console.log("> intents : ", response.intents);
 
@@ -197,6 +199,8 @@ function converse(msg) {
             tj.shine("white");
           }, 800);
         }
+
+        lastIntent = matchedIntent;
 
       } else {
         tj.shine("red");
@@ -279,9 +283,9 @@ function see(conversation_response) {
       })
       console.log(" ... response .. ", objects)
       var description = "";
-      var numMaxTags = 10
+      var numMaxTags = 10;
       numMaxTags = objects.length > numMaxTags ? numMaxTags : objects.length;
-      console.log()
+
       for (var i = objects.length - 1; i > (objects.length - numMaxTags); i--) {
         if (objects[i].score >= 0.5 && i < numMaxTags) {
           description = description + ", " + objects[i].class
