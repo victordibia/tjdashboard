@@ -279,13 +279,16 @@ function see(conversation_response) {
       })
       console.log(" ... response .. ", objects)
       var description = "";
-      var numMaxTags = 6,
-        i = 0;
-      objects.forEach(function(each) {
+      var numMaxTags = 6;
+      var i = 0;
+      var each;
+
+      for (i = objects.length; i > (objects.length - numMaxTags); i--) {
+        each = objects[i];
         if (each.score >= 0.5 && i < numMaxTags) {
           description = description + ", " + each.class
         }
-      })
+      }
       response.description = (description == "" || description == null) ? "No objects recognized in the image." : "The objects I see are : " + description;
       logSpeak("TJBot", response.description);
       tj.speak(response.description).then(function() {
