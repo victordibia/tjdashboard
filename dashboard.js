@@ -4,6 +4,7 @@ var config = require('./config');
 var AudioContext = require('web-audio-api').AudioContext
 context = new AudioContext
 var request = require("request");
+var _ = require("underscore");
 var fs = require('fs');
 var fileDir = process.cwd() + "/public/img/snaps"
 var curImage = "";
@@ -273,10 +274,15 @@ function see(conversation_response) {
     }
 
     tj.recognizeObjectsInPhoto(filePath).then(function(objects) {
+      objects = _.sortBy(objects, function(o) {
+        return o.score;
+      })
       console.log(" ... response .. ", objects)
-      var description = ""
+      var description = "";
+      var numMaxTags = 6,
+        i = 0;
       objects.forEach(function(each) {
-        if (each.score >= 0.5) {
+        if (each.score >= 0.5 && i < numMaxTags) {
           description = description + ", " + each.class
         }
       })
