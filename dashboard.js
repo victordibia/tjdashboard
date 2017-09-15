@@ -23,34 +23,8 @@ var WORKSPACEID = config.conversationWorkspaceId;
 // these are the hardware capabilities that TJ needs for this recipe
 var hardware = ['microphone', 'speaker', 'led', 'servo', "camera"];
 
-// set up configuration paramters
-var config = {
-  log: {
-    level: 'verbose'
-  },
-  listen: {
-    microphoneDeviceId: "plughw:1,0", // plugged-in USB card 1, device 0; see arecord -l for a list of recording devices
-    inactivityTimeout: -1, // -1 to never timeout or break the connection. Set this to a value in seconds e.g 120 to end connection after 120 seconds of silence
-    language: 'en-US' // see TJBot.prototype.languages.listen
-  },
-  speak: {
-    language: 'en-US', // see TJBot.prototype.languages.speak
-    voice: undefined, // use a specific voice; if undefined, a voice is chosen based on robot.gender and speak.language
-    speakerDeviceId: "plughw:0,0" // plugged-in USB card 1, device 0; see aplay -l for a list of playback devices
-  },
-  see: {
-    confidenceThreshold: {
-      object: 0.5, // only list image tags with confidence > 0.5
-      text: 0.1 // only list text tags with confidence > 0.5
-    },
-    camera: {
-      height: 720,
-      width: 960,
-      verticalFlip: false, // flips the image vertically, may need to set to 'true' if the camera is installed upside-down
-      horizontalFlip: false // flips the image horizontally, should not need to be overridden
-    }
-  }
-};
+// set up configuration paramters from config file
+var tjConfig = config.tjConfig;
 
 var listening = true;
 var detectface = false;
@@ -58,7 +32,7 @@ var detecttone = false;
 var currentusername = "you";
 
 // instantiate our TJBot!
-var tj = new tjbot(hardware, config, credentials);
+var tj = new tjbot(hardware, tjConfig, credentials);
 
 server.wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
@@ -297,8 +271,6 @@ function see(conversation_response) {
     } else {
       logVision("tjbot", response);
     }
-
-
 
     tj.recognizeObjectsInPhoto(filePath).then(function(objects) {
       console.log(" ... response .. ", objects)
