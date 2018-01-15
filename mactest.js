@@ -77,7 +77,7 @@ const params = {
 
 
 // test face fetching on mac
-testFaces()
+//testFaces()
 //
 function testFaces() {
   locations = {
@@ -337,7 +337,7 @@ function getWeather(long, lat) {
   });
 }
 
-var cv = require('opencv');
+//var cv = require('opencv');
 //getFaces();
 var faceurl = null;
 

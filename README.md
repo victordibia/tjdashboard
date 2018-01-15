@@ -128,8 +128,8 @@ You can add more utterances by creating additional intents on your watson conver
 
 For the dance command, your robot processes wav files in the sounds folder. Please ensure you have a .wav file there and set that as your sound file.
 
-# Reference
+## Reference
 
 If you are using or working with tjbot or this dashboard app, please feel free to cite our paper
 
-> Victor C. Dibia, Maryam Ashoori, Aaron Cox, and Justin D. Weisz. 2017. TJBot: An Open Source DIY Cardboard Robot for Programming Cognitive Systems. In Proceedings of the 2017 CHI Conference Extended Abstracts on Human Factors in Computing Systems (CHI EA '17). ACM, New York, NY, USA, 381-384. DOI: https://doi.org/10.1145/3027063.3052965 
+> Victor C. Dibia, Maryam Ashoori, Aaron Cox, and Justin D. Weisz. 2017. TJBot: An Open Source DIY Cardboard Robot for Programming Cognitive Systems. In Proceedings of the 2017 CHI Conference Extended Abstracts on Human Factors in Computing Systems (CHI EA '17). ACM, New York, NY, USA, 381-384. DOI: https://doi.org/10.1145/3027063.3052965
